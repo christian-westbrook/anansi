@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blog>
+	<title>How to build a blog post</title>
+	<author>Christian Westbrook</author>
+	<excerpt>
+		This is an example of blog content. In a blog post file you can choose to include...
+	</excerpt>
+	<content>
+		This is an example of blog content. In a blog post file you can choose to include as many tags as you'd like.
+	</content>
+	<date>5/14/2021</date>
+	<time>17:00</time>
+	<tag>blog</tag>
+	<tag>writing</tag>
+</blog>
