@@ -1,5 +1,4 @@
 <?php
-	include './classes/Blog.php';
 
 	// ---------------------------------------------------------------------------
 	// Function   : extractBlogFromXML()
@@ -7,7 +6,7 @@
 	// Parameters : $path - A string representing a relative path from the root
 	//              directory to a blog XML file.
 	// Abstract   : This function extracts the data from a blog XML file and
-	//              stores it in a Blog object.
+	//              stores it in an array.
 	// ---------------------------------------------------------------------------
 	function extractBlogFromXML($path) {
 
@@ -15,13 +14,14 @@
 		$handle = fopen($path, 'r');
 
 		// Control variables
-		$post = false;
+		$inBlog = false;
 		$opening = false;
 		$reading = false;
 		$closing = false;
 		$tagComparisonIndex = NULL;
 
 		// Storage variables;
+		$blog = array();
 		$tag = '';
 		$content = '';
 		$match = '';
@@ -31,7 +31,7 @@
 			$character = fgetc($handle);
 
 			// If we are looking for an opening tag
-			if($post && !$opening && !$reading && !$closing) {
+			if($inBlog && !$opening && !$reading && !$closing) {
 				if($character == '<') {
 					$opening = true;
 				}
@@ -41,13 +41,13 @@
 			}
 
 			// If we are currently opening a new tag
-			else if($post && $opening && !$reading && !$closing) {
+			else if($inBlog && $opening && !$reading && !$closing) {
 				if($character == '>') {
 					$opening = false;
 
-					if($tag == '</post>') {
+					if($tag == '</blog>') {
 						$tag = '';
-						$post = false;
+						$inBlog = false;
 					}
 					else {
 						$reading = true;
@@ -60,7 +60,7 @@
 
 
 			// If we are currently reading content
-			else if($post && !$opening && $reading && !$closing) {
+			else if($inBlog && !$opening && $reading && !$closing) {
 				if($character == '<') {
 					$reading = false;
 					$closing = true;
@@ -72,13 +72,11 @@
 			}
 
 			// If we are currently closing a tag
-			else if($post && !$opening && !$reading && $closing) {
+			else if($inBlog && !$opening && !$reading && $closing) {
 				if($character = '>') {
 
 					// Do stuff with the tag and content
-					print($tag . '<br />');
-					print($content . '<br />');
-					print('<br />');
+					$blog[$tag] = $content;
 
 					$tag = '';
 					$content = '';
@@ -94,17 +92,18 @@
 				}
 			}
 
-			else if(!$post) {
+			// If we aren't in a inBlog yet
+			else if(!$inBlog) {
 				$match .= $character;
-				if(preg_match('/<post>/i', $match)) {
+				if(preg_match('/<blog>/i', $match)) {
 					$match = '';
-					$post = true;
+					$inBlog = true;
 				}
 			}
 
 			// If some illegal state is reached
 			else {
-				echo "Error: Illegal state reached during blog post extraction!";
+				echo "Error: Illegal state reached during blog extraction!";
 				echo $opening;
 				echo $reading;
 				echo $closing;
@@ -112,5 +111,32 @@
 			}
 
 		}
+
+		fclose($handle);
+		return $blog;
+	}
+
+	// ---------------------------------------------------------------------------
+	// Function   : transformBlog()
+	// Engineer   : Christian Westbrook
+	// Parameters : $blog - An array holding an individual blog's data.
+	// Abstract   :
+	// ---------------------------------------------------------------------------
+	function transformBlog($blog) {
+		$transformation = '';
+
+		$transformation .= '<div class="blog">';
+		$transformation .= '<h1 class="title">' . $blog['title'] . '</h1>';
+		$transformation .= '<div class="blog-metadata">';
+		$transformation .= '<p class="author">' . $blog['author'] . '</p>';
+		$transformation .= '<p class="date">' . $blog['date'] . '</p>';
+		$transformation .= '</div>';
+
+		$content = $blog['content'];
+
+		$transformation .= '<p class="content">' . $content . '</p>	';
+		$transformation .= '</div>';
+
+		return $transformation;
 	}
 ?>
