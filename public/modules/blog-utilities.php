@@ -129,7 +129,10 @@
 		$transformation .= '<h1 class="title">' . $blog['title'] . '</h1>';
 		$transformation .= '<div class="blog-metadata">';
 		$transformation .= '<p class="author">' . $blog['author'] . '</p>';
-		$transformation .= '<p class="date">' . $blog['date'] . '</p>';
+
+		$timestamp = strtotime($blog['date'] . ' ' . $blog['time']);
+		$formattedDateTime = date('M d, Y g:ia', $timestamp);
+		$transformation .= '<p class="date">' . $formattedDateTime . '</p>';
 		$transformation .= '</div>';
 
 		$content = $blog['content'];
