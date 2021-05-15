@@ -17,4 +17,4 @@ The following demonstrates the minimum requirements for a single blog post.
 </blog>
 ```
 
-Additional optional tags that are now currently being used, but for which we have plans to implement uses, include <excerpt> and <tag>, with planned support for multiple <tag> entries in the same blog post.
+Additional optional tags that are not currently being used, but for which we have plans to implement uses, include <excerpt> and <tag>, with planned support for multiple <tag> entries in the same blog post.
