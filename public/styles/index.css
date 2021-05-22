@@ -12,7 +12,8 @@ body {
 	padding: 5px;
 
 	font-size: 30px;
-	font-family: Roboto;
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	font-weight: 100;
 }
 
 #header a {
