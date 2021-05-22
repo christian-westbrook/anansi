@@ -23,7 +23,7 @@ body {
 	margin: auto;
 }
 
-@media (max-width: 800px) {
+@media only screen and (max-width: 800px) {
 	#header {
 		font-size: 50px;
 	}
