@@ -1,19 +1,14 @@
 .blog {
-	background-color: #000000;
-	color: #FFFFFF;
+	color: #000000;
 
 	width: 60%;
 	margin: 0 auto;
 	margin-top: 2em;
-
-	border-style: solid;
-	border-width: 1px;
-	border-color: #FFFFFF;
-	border-radius: 10px;
 }
 
 .blog h1 {
 	font-family: Roboto;
+	font-size: 50px;
 
 	margin: 0 auto;
 	margin-top: 0.25em;
@@ -23,7 +18,7 @@
 
 .blog .blog-metadata {
 	font-family: Roboto;
-	font-size: 14px;
+	font-size: 20px;
 
 	margin: 0 auto;
 	margin-top: 0em;
@@ -42,9 +37,9 @@
 
 .blog .content {
 	font-family: Roboto;
-	font-size: 16px;
+	font-size: 22px;
 
-	width: 90%;
+	width: 70%;
 
 	margin: 0 auto;
 	margin-bottom: 0.5em;
