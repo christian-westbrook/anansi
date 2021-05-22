@@ -55,14 +55,19 @@
 	.blog {
 		width: 90%;
 	}
-	.blog .content {
-		width: 100%;
-		font-size: 34px;
+
+	.blog .title {
+		font-size: 64px;
 	}
 
 	.blog .blog-metadata {
 		width: 100%;
-		font-size: 30;
+		font-size: 36px;
 		text-align: center;
+	}
+
+	.blog .content {
+		width: 100%;
+		font-size: 52px;
 	}
 }
