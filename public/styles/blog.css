@@ -1,7 +1,7 @@
 .blog {
 	color: #000000;
 
-	width: 60%;
+	width: 800px;
 	margin: 0 auto;
 	margin-top: 2em;
 
@@ -11,7 +11,7 @@
 
 .blog .title {
 	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 50px;
+	font-size: 55px;
 	font-weight: 100;
 
 	margin: 0 auto;
@@ -42,7 +42,7 @@
 
 .blog .content {
 	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 22px;
+	font-size: 26px;
 	font-weight: 400;
 
 	width: 70%;
@@ -51,18 +51,18 @@
 	margin-bottom: 0.5em;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1200px) {
 	.blog {
 		width: 90%;
 	}
 	.blog .content {
 		width: 100%;
-		font-size: 30px;
+		font-size: 34px;
 	}
 
 	.blog .blog-metadata {
 		width: 100%;
-		font-size: 26;
+		font-size: 30;
 		text-align: center;
 	}
 }
