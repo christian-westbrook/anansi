@@ -50,3 +50,10 @@
 	margin: 0 auto;
 	margin-bottom: 0.5em;
 }
+
+@media (max-width: 800px) {
+	.blog {
+		width: 100%;
+		font-size: 30px;
+	}
+}
