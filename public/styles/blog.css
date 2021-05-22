@@ -53,7 +53,16 @@
 
 @media (max-width: 800px) {
 	.blog {
+		width: 90%;
+	}
+	.blog .content {
 		width: 100%;
 		font-size: 30px;
+	}
+
+	.blog .blog-metadata {
+		width: 100%;
+		font-size: 26;
+		text-align: center;
 	}
 }
