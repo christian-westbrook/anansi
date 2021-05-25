@@ -1,16 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 body {
-	background-color: #121212;
+	background-color: #FFFFFF;
 }
 
 #header {
-	background-color: #272727;
+	background-color: #121212;
 	color: #FFFFFF;
 
-	text-align: center;
 	padding: 5px;
 
 	font-size: 30px;
-	font-family: Roboto;
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	font-weight: 100;
+
+	display: flex;
+}
+
+#header a {
+	text-decoration: none;
+	color: #FFFFFF;
+	margin: auto;
+}
+
+@media only screen and (max-width: 1200px) {
+	#header {
+		font-size: 50px;
+	}
 }

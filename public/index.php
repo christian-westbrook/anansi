@@ -9,7 +9,7 @@
 
 	<body>
 		<div id="header">
-			<h3>christianwestbrook.dev</h3>
+			<a href="/"><h3>christianwestbrook.dev</h3></a>
 		</div>
 
 		<?php
