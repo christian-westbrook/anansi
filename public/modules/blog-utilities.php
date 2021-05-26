@@ -135,9 +135,47 @@
 		$transformation .= '<p class="date">' . $formattedDateTime . '</p>';
 		$transformation .= '</div>';
 
+		$transformation .= '<p class="content">';
 		$content = $blog['content'];
 
-		$transformation .= '<p class="content">' . $content . '</p>	';
+		$lines = explode("\n", $content);
+
+		# Markdown parser
+		foreach($lines as $line) {
+			# Trim leading whitespace
+			$line = ltrim($line);
+
+			# If the trimmed line is now empty, skip the line
+			if($line == '') {
+				continue;
+			}
+
+			if(preg_match('/\!\[[\w\s]+\]\([\w\.\/]+\)/i', $line, $matches)) {
+				foreach($matches as $match) {
+					$reduced = $match;
+					$reduced = substr($reduced, 1);
+					$reduced = ltrim($reduced, '[');
+					$reduced = rtrim($reduced, ')');
+					$components = explode('](', $reduced);
+					$altText = $components[0];
+					$src = $components[1];
+
+					$pattern = '/' . str_replace(['(', ')', '[', ']', '/', '!', '.'], ['\(', '\)', '\[', '\]', '\/', '\!', '\.'], $match) . '/i';
+					$replacement = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" /><br/>';
+					$line = preg_replace($pattern, $replacement, $line);
+				}
+			}
+
+			# Add a line break if you find two spaces at the end of a line
+			if(ctype_space(substr($line, -3))) {
+				$line .= "<br/>";
+			}
+
+			# Add a line break to all surviving lines
+			$transformation .= $line . '<br/>';
+		}
+
+		$transformation .= '</p>	';
 		$transformation .= '</div>';
 
 		return $transformation;
