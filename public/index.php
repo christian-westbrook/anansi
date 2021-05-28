@@ -13,7 +13,7 @@
 		</div>
 
 		<?php
-			$blogEngine = new BlogEngine('./data/');
+			$blogEngine = new BlogEngine('./blogs/');
 			$blogFeed = $blogEngine->generateBlogFeed();
 			echo $blogFeed;
 		?>
