@@ -134,6 +134,7 @@
 		$formattedDateTime = date('M d, Y g:ia', $timestamp);
 		$transformation .= '<p class="date">' . $formattedDateTime . '</p>';
 		$transformation .= '</div>';
+		$transformation .= '<img class="thumbnail" src="' . $blog['thumbnail'] . '" />';
 
 		$transformation .= '<div class="content">';
 		$content = $blog['content'];
@@ -151,7 +152,7 @@
 			}
 
 			# Process bolding and italics
-			if(preg_match('/\*\*\*\w+\*\*\*/i', $line, $matches)) {
+			if(preg_match('/\*\*\*[\w\s,]+\*\*\*/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '*');
 					$pattern = '/' . str_replace('*', '\*', $match) . '/i';
@@ -159,7 +160,7 @@
 					$line = preg_replace($pattern, $replacement, $line);
 				}
 			}
-			if(preg_match('/___\w+___/i', $line, $matches)) {
+			if(preg_match('/___[\w\s,]+___/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '_');
 					$pattern = '/' . $match . '/i';
@@ -167,7 +168,7 @@
 					$line = preg_replace($pattern, $replacement, $line);
 				}
 			}
-			if(preg_match('/\*\*\w+\*\*/i', $line, $matches)) {
+			if(preg_match('/\*\*[\w\s\!,]+\*\*/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '*');
 					$pattern = '/' . str_replace('*', '\*', $match) . '/i';
@@ -175,7 +176,7 @@
 					$line = preg_replace($pattern, $replacement, $line);
 				}
 			}
-			if(preg_match('/__\w+__/i', $line, $matches)) {
+			if(preg_match('/__[\w\s,]+__/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '_');
 					$pattern = '/' . $match . '/i';
@@ -183,7 +184,7 @@
 					$line = preg_replace($pattern, $replacement, $line);
 				}
 			}
-			if(preg_match('/\*\w+\*/i', $line, $matches)) {
+			if(preg_match('/\*[\w\s,]+\*/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '*');
 					$pattern = '/' . str_replace('*', '\*', $match) . '/i';
@@ -191,7 +192,7 @@
 					$line = preg_replace($pattern, $replacement, $line);
 				}
 			}
-			if(preg_match('/_\w+_/i', $line, $matches)) {
+			if(preg_match('/_[\w\s,]+_/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '_');
 					$pattern = '/' . $match . '/i';
