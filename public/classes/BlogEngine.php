@@ -30,33 +30,35 @@ class BlogEngine {
 	#              path.
 	# --------------------------------------------------------------------------
 	public function generateBlogFeed() {
-		// Array for storing extracted blog posts
-		$blogsXML = array();
+		// Data structures for storing blog posts
+		$blogsXML  = array();
 		$blogsHTML = array();
 
 		// For every blog file in the blog search path
 		foreach(scandir($this->blogSearchPath) as $partialBlogPath) {
+			// Skip these paths
 			if($partialBlogPath == '.' || $partialBlogPath == '..')
 				continue;
 			if($partialBlogPath == 'demo.xml')
 				continue;
 
-			// Extract blog content from the file at the given path
-			$blog = $this->extractBlogFromXML($this->blogSearchPath . $partialBlogPath);
+			// Extract XML blog content from the XML file at the given path
+			$blogXML = $this->extractBlogFromXML($this->blogSearchPath . $partialBlogPath);
 
-			// Add the newly extracted blog onto the stack of blogs
-			array_push($blogsXML, $blog);
+			// Add the newly extracted XML blog onto the stack of XML blogs
+			array_push($blogsXML, $blogXML);
 		}
 
-		// Sort blogs on the date field
+		// Sort XML blogs on the date field
 		array_multisort(array_column($blogsXML, "date"), SORT_DESC, $blogsXML);
 
-		// Convert blog from XML to HTML
-		foreach($blogsXML as $blog) {
-			$transformation = $this->transformBlog($blog);
-			array_push($blogsHTML, $transformation);
+		// Convert blogs from XML to HTML and add to the HTML blog stack
+		foreach($blogsXML as $blogXML) {
+			$blogHTML = $this->transformBlog($blogXML);
+			array_push($blogsHTML, $blogHTML);
 		}
 
+		// Return feed of HTML blogs
 		return $blogsHTML;
 	}
 
