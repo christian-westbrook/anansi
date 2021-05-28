@@ -42,7 +42,7 @@ class BlogEngine {
 
 			// Extract blog content from the file at the given path
 			// and append the content to the $blogs array
-			array_push($blogs, extractBlogFromXML('./data/' . $path));
+			array_push($blogs, extractBlogFromXML($this->blogSearchPath . $path));
 		}
 
 		// Sort blogs on the date field
