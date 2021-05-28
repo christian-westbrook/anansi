@@ -3,9 +3,12 @@
 # System   : Portfolio Web System
 # Class    : XMLEngine.php
 # Engineer : Christian Westbrook
-# Abstract : This class handles XML parsing for the portfolio web system.
+# Abstract : This class handles XML parsing and conversions for the portfolio 
+#            web system.
 # ------------------------------------------------------------------------------
 class XMLEngine {
+
+	// ----------------------- Public Interface ---------------------------------
 
 	// ---------------------------------------------------------------------------
 	// Method     : extractBlogFromXML()
@@ -14,9 +17,8 @@ class XMLEngine {
 	//              root web directory to a blog XML file.
 	// Output     : $blog - A dictionary mapping detected XML tags to their
 	//              respective content.
-	// Abstract   : This method extracts content from an XML blog file and
-	//              stores it in a dictionary mapping content tags as keys to 
-	//              content as values.
+	// Abstract   : This method extracts a blog from an XML file by storing its
+	//              content tags as keys and its content as values in a dictionary.
 	//
 	//              The method begins by opening a file stream on the given blog
 	//              path. The strategy for extracting blog content is to make a
@@ -24,18 +26,19 @@ class XMLEngine {
 	//              their associated content and storing them in a dictionary for
 	//              further processing by the system. The method ends by closing
 	//              the file stream and returning the dictionary of detected tags
-	//              and content for further processing by the system.
+	//              and content.
 	// ---------------------------------------------------------------------------
 	public function extractBlogFromXML($fullBlogPath) {
 		// Open a file stream
 		$handle = fopen($fullBlogPath, 'r');
 
 		// Control variables
-		$inBlog = false;
-		$opening = false;
-		$reading = false;
-		$closing = false;
-		$tagComparisonIndex = NULL;
+		$state = array();
+		$state['inBlog'] = false;
+		$state['opening'] = false;
+		$state['reading'] = false;
+		$state['closing'] = false;
+		$state['tagComparisonIndex'] = NULL;
 
 		// Storage variables;
 		$blog = array();
@@ -45,29 +48,38 @@ class XMLEngine {
 
 		// Iterate through characters in the file stream
 		while(!feof($handle)) {
+			// Get the next character
 			$character = fgetc($handle);
 
-			// If we are looking for an opening tag
-			if($inBlog && !$opening && !$reading && !$closing) {
+			// If we aren't in a blog yet
+			if(!$state['inBlog']) {
+				$match .= $character;
+				if(preg_match('/<blog>/i', $match)) {
+					$match = '';
+					$state['inBlog'] = true;
+				}
+			}
+			// If we are looking for an opening content tag
+			else if($state['inBlog'] && !$state['opening'] && !$state['reading'] && !$state['closing']) {
 				if($character == '<') {
-					$opening = true;
+					$state['opening'] = true;
 				}
 				else {
 					continue;
 				}
 			}
 
-			// If we are currently opening a new tag
-			else if($inBlog && $opening && !$reading && !$closing) {
+			// If we are currently opening a new content tag
+			else if($state['inBlog'] && $state['opening'] && !$state['reading'] && !$state['closing']) {
 				if($character == '>') {
-					$opening = false;
+					$state['opening'] = false;
 
 					if($tag == '</blog>') {
 						$tag = '';
-						$inBlog = false;
+						$state['inBlog'] = false;
 					}
 					else {
-						$reading = true;
+						$state['reading'] = true;
 					}
 				}
 				else {
@@ -77,11 +89,11 @@ class XMLEngine {
 
 
 			// If we are currently reading content
-			else if($inBlog && !$opening && $reading && !$closing) {
+			else if($state['inBlog'] && !$state['opening'] && $state['reading'] && !$state['closing']) {
 				if($character == '<') {
-					$reading = false;
-					$closing = true;
-					$tagComparisonIndex = 0;
+					$state['reading'] = false;
+					$state['closing'] = true;
+					$state['tagComparisonIndex'] = 0;
 				}
 				else {
 					$content .= $character;
@@ -89,7 +101,7 @@ class XMLEngine {
 			}
 
 			// If we are currently closing a tag
-			else if($inBlog && !$opening && !$reading && $closing) {
+			else if($state['inBlog'] && !$state['opening'] && !$state['reading'] && $state['closing']) {
 				if($character = '>') {
 
 					// Do stuff with the tag and content
@@ -97,33 +109,24 @@ class XMLEngine {
 
 					$tag = '';
 					$content = '';
-					$tagComparisonIndex = NULL;
-					$closing = false;
+					$state['tagComparisonIndex'] = NULL;
+					$state['closing'] = false;
 				}
-				else if($character != substr($tag, $tagComparisonIndex, 1)) {
+				else if($character != substr($tag, $state['tagComparisonIndex'], 1)) {
 					echo "Error: Bad closing tag!";
 					break;
 				}
 				else {
-					$tagComparisonIndex++;
-				}
-			}
-
-			// If we aren't in a inBlog yet
-			else if(!$inBlog) {
-				$match .= $character;
-				if(preg_match('/<blog>/i', $match)) {
-					$match = '';
-					$inBlog = true;
+					$state['tagComparisonIndex']++;
 				}
 			}
 
 			// If some illegal state is reached
 			else {
 				echo "Error: Illegal state reached during blog extraction!";
-				echo $opening;
-				echo $reading;
-				echo $closing;
+				echo $state['opening'];
+				echo $state['reading'];
+				echo $state['closing'];
 				break;
 			}
 
@@ -274,6 +277,12 @@ class XMLEngine {
 		$transformation .= '</div>';
 
 		return $transformation;
+	}
+	// ---------------------------------------------------------------------------
+
+	// ----------------------- Private Interface ---------------------------------
+	private function parseBlogOpeningTag() {
+
 	}
 }
 ?>
