@@ -17,6 +17,7 @@
 	margin: 0 auto;
 	margin-top: 0.25em;
 	margin-bottom: 0;
+	padding-bottom: 0;
 
 	margin: auto;
 }
@@ -27,17 +28,25 @@
 	font-weight: 400;
 
 	margin: 0 auto;
-	margin-top: 0em;
+	margin-top: 0;
+
+	height: 3em;
 }
 
 .blog .author {
 	display: inline-block;
 	margin-right: 0.5em;
+	margin-top: 0;
 }
 
 .blog .date, .blog .time {
 	display: inline;
 	margin-right: 0.5em;
+}
+
+.blog .thumbnail {
+	width: 110%;
+	margin-bottom: 3em;
 }
 
 .blog .content {
