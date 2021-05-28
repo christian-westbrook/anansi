@@ -15,7 +15,9 @@
 		<?php
 			$blogEngine = new BlogEngine('./blogs/');
 			$blogFeed = $blogEngine->generateBlogFeed();
-			echo $blogFeed;
+
+			foreach($blogFeed as $blog)
+				echo $blog;
 		?>
 	</body>
 </html>

@@ -31,7 +31,8 @@ class BlogEngine {
 	# --------------------------------------------------------------------------
 	public function generateBlogFeed() {
 		// Array for storing extracted blog posts
-		$blogs = array();
+		$blogsXML = array();
+		$blogsHTML = array();
 
 		// For every blog file in the blog search path
 		foreach(scandir($this->blogSearchPath) as $partialBlogPath) {
@@ -44,15 +45,19 @@ class BlogEngine {
 			$blog = $this->extractBlogFromXML($this->blogSearchPath . $partialBlogPath);
 
 			// Add the newly extracted blog onto the stack of blogs
-			array_push($blogs, $blog);
+			array_push($blogsXML, $blog);
 		}
 
 		// Sort blogs on the date field
-		array_multisort(array_column($blogs, "date"), SORT_DESC, $blogs);
+		array_multisort(array_column($blogsXML, "date"), SORT_DESC, $blogsXML);
 
-		foreach($blogs as $blog) {
-			echo $this->transformBlog($blog);
+		// Convert blog from XML to HTML
+		foreach($blogsXML as $blog) {
+			$transformation = $this->transformBlog($blog);
+			array_push($blogsHTML, $transformation);
 		}
+
+		return $blogsHTML;
 	}
 
 	// ---------------------------------------------------------------------------
