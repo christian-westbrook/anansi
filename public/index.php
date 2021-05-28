@@ -18,7 +18,7 @@
 
 			// For every blog file in ./data
 			foreach(scandir('./data/') as $path) {
-				if ($path == '.' || $path == '..')
+				if ($path == '.' || $path == '..' || $path == 'demo.xml')
 					continue;
 
 				// Extract blog content from the file at the given path
