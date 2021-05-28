@@ -54,7 +54,7 @@ class BlogEngine {
 
 		// Convert blogs from XML to HTML and add to the HTML blog stack
 		foreach($blogsXML as $blogXML) {
-			$blogHTML = $this->transformBlog($blogXML);
+			$blogHTML = $this->convertBlogToHTML($blogXML);
 			array_push($blogsHTML, $blogHTML);
 		}
 
@@ -65,10 +65,21 @@ class BlogEngine {
 	// ---------------------------------------------------------------------------
 	// Method     : extractBlogFromXML()
 	// Engineer   : Christian Westbrook
-	// Parameters : $fullBlogPath - A string representing a relative path from the root
-	//              directory to a blog XML file.
-	// Abstract   : This function extracts the data from a blog XML file and
-	//              stores it in an array.
+	// Parameters : $fullBlogPath - A string representing a relative path from the 
+	//              root web directory to a blog XML file.
+	// Output     : $blog - A dictionary mapping detected XML tags to their
+	//              respective content.
+	// Abstract   : This method extracts content from an XML blog file and
+	//              stores it in a dictionary mapping content tags as keys to 
+	//              content as values.
+	//
+	//              The method begins by opening a file stream on the given blog
+	//              path. The strategy for extracting blog content is to make a
+	//              single pass through the file stream looking for XML tags and
+	//              their associated content and storing them in a dictionary for
+	//              further processing by the system. The method ends by closing
+	//              the file stream and returning the dictionary of detected tags
+	//              and content for further processing by the system.
 	// ---------------------------------------------------------------------------
 	private function extractBlogFromXML($fullBlogPath) {
 		// Open a file stream
@@ -178,12 +189,12 @@ class BlogEngine {
 	}
 
 	// ---------------------------------------------------------------------------
-	// Function   : transformBlog()
+	// Function   : convertBlogToHTML()
 	// Engineer   : Christian Westbrook
 	// Parameters : $blog - An array holding an individual blog's data.
 	// Abstract   :
 	// ---------------------------------------------------------------------------
-	private function transformBlog($blog) {
+	private function convertBlogToHTML($blog) {
 		$transformation = '';
 
 		$transformation .= '<div class="blog">';
