@@ -30,7 +30,7 @@
 	margin: 0 auto;
 	margin-top: 0;
 
-	height: 3em;
+	height: 2em;
 }
 
 .blog .author {
@@ -44,6 +44,19 @@
 	margin-right: 0.5em;
 }
 
+.blog .abstract {
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: 450;
+	line-height: 1.3;
+
+	margin: 0 auto;
+	margin-top: 0;
+	margin-bottom: 1em;
+
+	width: 70%;
+}
+
 .blog .thumbnail {
 	width: 110%;
 	margin-bottom: 3em;
@@ -52,7 +65,8 @@
 .blog .content {
 	font-family: Roboto, Arial, Helvetica, sans-serif;
 	font-size: 26px;
-	font-weight: 400;
+	font-weight: 450;
+	line-height: 1.3;
 
 	width: 70%;
 
@@ -67,6 +81,11 @@
 .blog .embeddedHeading {
 	margin-bottom: 0;
 	margin-top: 0;
+}
+
+.blog .embeddedLink {
+	color: #05C3DD;
+	text-decoration: none;
 }
 
 @media only screen and (max-width: 1200px) {

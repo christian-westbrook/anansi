@@ -154,6 +154,7 @@ class XMLEngine {
 		$formattedDateTime = date('M d, Y g:ia', $timestamp);
 		$transformation .= '<p class="date">' . $formattedDateTime . '</p>';
 		$transformation .= '</div>';
+		$transformation .= '<p class="abstract"><i>' . $blog['abstract'] . '</i></p>';
 		$transformation .= '<img class="thumbnail" src="' . $blog['thumbnail'] . '" />';
 
 		$transformation .= '<div class="content">';
@@ -171,84 +172,8 @@ class XMLEngine {
 				continue;
 			}
 
-			# Process bolding and italics
-			if(preg_match('/\*\*\*[\w\s,]+\*\*\*/i', $line, $matches)) {
-				foreach($matches as $match) {
-					$target = trim($match, '*');
-					$pattern = '/' . str_replace('*', '\*', $match) . '/i';
-					$replacement = '<b><i>' . $target . '</i></b>';
-					$line = preg_replace($pattern, $replacement, $line);
-				}
-			}
-			if(preg_match('/___[\w\s,]+___/i', $line, $matches)) {
-				foreach($matches as $match) {
-					$target = trim($match, '_');
-					$pattern = '/' . $match . '/i';
-					$replacement = '<b><i>' . $target . '</i></b>';
-					$line = preg_replace($pattern, $replacement, $line);
-				}
-			}
-			if(preg_match('/\*\*[\w\s\!,]+\*\*/i', $line, $matches)) {
-				foreach($matches as $match) {
-					$target = trim($match, '*');
-					$pattern = '/' . str_replace('*', '\*', $match) . '/i';
-					$replacement = '<b>' . $target . '</b>';
-					$line = preg_replace($pattern, $replacement, $line);
-				}
-			}
-			if(preg_match('/__[\w\s,]+__/i', $line, $matches)) {
-				foreach($matches as $match) {
-					$target = trim($match, '_');
-					$pattern = '/' . $match . '/i';
-					$replacement = '<b>' . $target . '</b>';
-					$line = preg_replace($pattern, $replacement, $line);
-				}
-			}
-			if(preg_match('/\*[\w\s,]+\*/i', $line, $matches)) {
-				foreach($matches as $match) {
-					$target = trim($match, '*');
-					$pattern = '/' . str_replace('*', '\*', $match) . '/i';
-					$replacement = '<i>' . $target . '</i>';
-					$line = preg_replace($pattern, $replacement, $line);
-				}
-			}
-			if(preg_match('/_[\w\s,]+_/i', $line, $matches)) {
-				foreach($matches as $match) {
-					$target = trim($match, '_');
-					$pattern = '/' . $match . '/i';
-					$replacement = '<i>' . $target . '</i>';
-					$line = preg_replace($pattern, $replacement, $line);
-				}
-			}
-
-			# Process headings
-			if(preg_match('/######.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<h6 class="embeddedHeading">' . $target . '</h6>';
-			}
-			if(preg_match('/#####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<h5 class="embeddedHeading">' . $target . '</h5>';
-			}
-			if(preg_match('/####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<h4 class="embeddedHeading">' . $target . '</h4>';
-			}
-			if(preg_match('/###.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<h3 class="embeddedHeading">' . $target . '</h3>';
-			}
-			if(preg_match('/##.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<h2 class="embeddedHeading">' . $target . '</h2>';
-			}
-			if(preg_match('/#.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<h1 class="embeddedHeading">' . $target . '</h1>';
-			}
-
 			# Process images
-			if(preg_match('/\!\[[\w\s]+\]\([\w\.\/]+\)/i', $line, $matches)) {
+			if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$reduced = $match;
 					$reduced = substr($reduced, 1);
@@ -262,6 +187,101 @@ class XMLEngine {
 					$replacement = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" /><br/>';
 					$line = preg_replace($pattern, $replacement, $line);
 				}
+			}
+
+			# Process links
+			if(preg_match_all('/\[[\w\s\.-]+\]\([\w\.\:\/\_-]+\)/i', $line, $matches)) {
+				foreach($matches as $match) {
+					foreach($match as $original) {
+						$reduced = $original;
+						$reduced = substr($reduced, 1);
+						$reduced = ltrim($reduced, '[');
+						$reduced = rtrim($reduced, ')');
+						$components = explode('](', $reduced);
+						$text = $components[0];
+						$href = $components[1];
+
+						$pattern = '/' . str_replace(['(', ')', '[', ']', '/', '!', '.'], ['\(', '\)', '\[', '\]', '\/', '\!', '\.'], $original) . '/i';
+						$replacement = '<a class="embeddedLink" href="' . $href . '">' . $text . '<a/>';
+						$line = preg_replace($pattern, $replacement, $line);
+					}
+				}
+			}
+
+			# Process bolding and italics
+			if(preg_match('/\*\*\*[\w\s\!\?\.,]+\*\*\*/i', $line, $matches)) {
+				foreach($matches as $match) {
+					$target = trim($match, '*');
+					$pattern = '/' . str_replace(['*', '!', '?'], ['\*', '\!', '\?'], $match) . '/i';
+					$replacement = '<b><i>' . $target . '</i></b>';
+					$line = preg_replace($pattern, $replacement, $line);
+				}
+			}
+			if(preg_match('/___[\w\s\!\?\.,]+___/i', $line, $matches)) {
+				foreach($matches as $match) {
+					$target = trim($match, '_');
+					$pattern = '/' . str_replace(['*', '!', '?'], ['\*', '\!', '\?'], $match) . '/i';
+					$replacement = '<b><i>' . $target . '</i></b>';
+					$line = preg_replace($pattern, $replacement, $line);
+				}
+			}
+			if(preg_match('/\*\*[\w\s\!\?\.,]+\*\*/i', $line, $matches)) {
+				foreach($matches as $match) {
+					$target = trim($match, '*');
+					$pattern = '/' . str_replace(['*', '!', '?'], ['\*', '\!', '\?'], $match) . '/i';
+					$replacement = '<b>' . $target . '</b>';
+					$line = preg_replace($pattern, $replacement, $line);
+				}
+			}
+			if(preg_match('/__[\w\s\!\?\.,]+__/i', $line, $matches)) {
+				foreach($matches as $match) {
+					$target = trim($match, '_');
+					$pattern = '/' . str_replace(['*', '!', '?'], ['\*', '\!', '\?'], $match) . '/i';
+					$replacement = '<b>' . $target . '</b>';
+					$line = preg_replace($pattern, $replacement, $line);
+				}
+			}
+			if(preg_match('/\*[\w\s\!\?\.,]+\*/i', $line, $matches)) {
+				foreach($matches as $match) {
+					$target = trim($match, '*');
+					$pattern = '/' . str_replace(['*', '!', '?'], ['\*', '\!', '\?'], $match) . '/i';
+					$replacement = '<i>' . $target . '</i>';
+					$line = preg_replace($pattern, $replacement, $line);
+				}
+			}
+			if(preg_match('/_[\w\s\!\?\.,]+_/i', $line, $matches)) {
+				foreach($matches as $match) {
+					$target = trim($match, '_');
+					$pattern = '/' . str_replace(['*', '!', '?'], ['\*', '\!', '\?'], $match) . '/i';
+					$replacement = '<i>' . $target . '</i>';
+					$line = preg_replace($pattern, $replacement, $line);
+				}
+			}
+
+			# Process headings
+			if(preg_match('/######.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
+			}
+			if(preg_match('/#####.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h5 class="embeddedHeading">' . $target . '</h5>';
+			}
+			if(preg_match('/####.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h4 class="embeddedHeading">' . $target . '</h4>';
+			}
+			if(preg_match('/###.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h3 class="embeddedHeading">' . $target . '</h3>';
+			}
+			if(preg_match('/##.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h2 class="embeddedHeading">' . $target . '</h2>';
+			}
+			if(preg_match('/#.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
 			}
 
 			# Add a line break if you find two spaces at the end of a line
@@ -279,10 +299,5 @@ class XMLEngine {
 		return $transformation;
 	}
 	// ---------------------------------------------------------------------------
-
-	// ----------------------- Private Interface ---------------------------------
-	private function parseBlogOpeningTag() {
-
-	}
 }
 ?>
