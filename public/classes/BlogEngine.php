@@ -6,8 +6,9 @@
 # Abstract : This class handles blog processing for the portfolio web system.
 # ------------------------------------------------------------------------------
 
-// Import statements
+// Imports
 include './classes/XMLEngine.php';
+
 class BlogEngine {
 
 	# Path to a directory where we should look for blog posts
@@ -20,7 +21,7 @@ class BlogEngine {
 	# Parameters : $blogSearchPath - A path to a directory where we should look
 	#              for blog posts.
 	# Abstract   : This constructor initializes a BlogEngine object by setting
-	#              the search path where we should look for blog posts.
+	#              the search path to where we should look for blog posts.
 	# --------------------------------------------------------------------------
 	function __construct($blogSearchPath) {
 		$this->blogSearchPath = $blogSearchPath;
