@@ -14,12 +14,13 @@
 	font-size: 55px;
 	font-weight: 100;
 
-	margin: 0 auto;
 	margin-top: 0.25em;
 	margin-bottom: 0;
 	padding-bottom: 0;
+	margin: 0 auto;
 
-	margin: auto;
+	width: 100%;
+	text-align: center;
 }
 
 .blog .blog-metadata {
@@ -59,7 +60,7 @@
 }
 
 .blog .thumbnail {
-	width: 110%;
+	width: 100%;
 	margin-bottom: 3em;
 }
 
