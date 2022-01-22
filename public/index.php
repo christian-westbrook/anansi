@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!-- ------------------------------------------------------------------------- -->
+<!-- System   : Portfolio Web System                                           -->
+<!-- Script   : index.php                                                      -->
+<!-- Engineer : Christian Westbrook                                            -->
+<!-- Abstract : This script serves as a landing page and entry point to the    -->
+<!--            web system.                                                    -->
+<!-- ------------------------------------------------------------------------- -->
 <html>
 	<head>
 			<title>christianwestbrook.dev</title>
@@ -13,9 +20,11 @@
 		</div>
 
 		<?php
+			# Build the blog feed using a BlogEngine object
 			$blogEngine = new BlogEngine('./blogs/');
 			$blogFeed = $blogEngine->generateBlogFeed();
 
+			# Render each blog in the feed
 			foreach($blogFeed as $blog)
 				echo $blog;
 		?>

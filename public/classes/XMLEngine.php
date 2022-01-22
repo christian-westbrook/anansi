@@ -3,8 +3,8 @@
 # System   : Portfolio Web System
 # Class    : XMLEngine.php
 # Engineer : Christian Westbrook
-# Abstract : This class handles XML parsing and conversions for the portfolio 
-#            web system.
+# Abstract : This class provides an interface of support methods that handle
+#            XML parsing and conversions to HTML for the portfolio web system.
 # ------------------------------------------------------------------------------
 class XMLEngine {
 
@@ -24,9 +24,8 @@ class XMLEngine {
 	//              path. The strategy for extracting blog content is to make a
 	//              single pass through the file stream looking for XML tags and
 	//              their associated content and storing them in a dictionary for
-	//              further processing by the system. The method ends by closing
-	//              the file stream and returning the dictionary of detected tags
-	//              and content.
+	//              further processing. The method ends by closing the file stream 
+	#               and returning the dictionary of detected tags and content.
 	// ---------------------------------------------------------------------------
 	public function extractBlogFromXML($fullBlogPath) {
 		// Open a file stream
@@ -139,12 +138,20 @@ class XMLEngine {
 	// ---------------------------------------------------------------------------
 	// Method     : convertXMLBlogToHTML()
 	// Engineer   : Christian Westbrook
-	// Parameters : $blog - An array holding an individual blog's data.
-	// Abstract   :
+	// Parameters : $blog - A dictionary holding an individual blog's XML tags
+	//              mapped to their respective content.
+	// Output     : $transformation - A string of HTML content representing the
+	//              conversion of the input blog dictionary to an HTML blog post.
+	// Abstract   : This function takes in a dictionary mapping blog XML tags to
+	//              their respective content and then plugs that content into a
+	//              predefined HTML template representing a blog post. This HTML
+	//              content is then returned as a string.
 	// ---------------------------------------------------------------------------
 	public function convertXMLBlogToHTML($blog) {
+		# Append all desired HTML content to this string
 		$transformation = '';
 
+		# Header
 		$transformation .= '<div class="blog">';
 		$transformation .= '<h1 class="title">' . $blog['title'] . '</h1>';
 		$transformation .= '<div class="blog-metadata">';
@@ -157,6 +164,7 @@ class XMLEngine {
 		$transformation .= '<p class="abstract"><i>' . $blog['abstract'] . '</i></p>';
 		$transformation .= '<img class="thumbnail" src="' . $blog['thumbnail'] . '" />';
 
+		# Body
 		$transformation .= '<div class="content">';
 		$content = $blog['content'];
 
