@@ -2,6 +2,7 @@
 <blog>
 	<title>How to build a blog post</title>
 	<author>Christian Westbrook</author>
+	<abstract>This is an example of blog content.</abstract>
 	<thumbnail>/img/CSU.png</thumbnail>
 	<excerpt>
 		This is an example of blog content. In a blog post file you can choose to include...
