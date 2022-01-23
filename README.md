@@ -1,5 +1,17 @@
 # Portfolio Web System
 
+### Stack Example
+
+An example deployment of the portfolio web system can be found at [www.christianwestbrook.dev](https://www.christianwestbrook.dev). In this section we briefly describe the technology stack supporting site deployment at christianwestbrook.dev to demonstrate what a portfolio web system deployment could look like.  
+
+- The domain name `www.christianwestbrook.dev` is registered at [Google Domains](https://domains.google/)
+- DNS service connecting the domain name to the origin network is provided by [CloudFlare](https://www.cloudflare.com/)
+- Requests transmitted to the origin network are routed to the origin server through configured port forwarding
+- The origin server is a [Raspberry Pi](https://www.raspberrypi.com/) computer
+- An [Apache HTTP Server](https://httpd.apache.org/) deployed to the origin server processes web requests
+- An SSL certificate enabling the servicing of HTTPS requests is provided by [CloudFlare](https://www.cloudflare.com/)
+- A deployment of the [Portfolio Web System](https://github.com/christian-westbrook/portfolio-web-system) is installed on the HTTP server
+
 ### Authoring Blog Posts
 
 Individual blog posts are stored in XML format in the `/data` directory. To add new blog posts to the system simply store your new posts in the following XML format and place them in the /data directory. The web system will detect all blog posts stored in this directory and render in order from the most recent post to the oldest post.
