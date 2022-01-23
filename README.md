@@ -19,10 +19,21 @@ The following demonstrates the minimum requirements for a single blog post.
 <blog>
 	<title></title>
 	<author></author>
+	<abstract></abstract>
+	<thumbnail></thumbnail>
 	<content></content>
 	<date></date>
 	<time></time>
 </blog>
 ```
 
-Additional optional tags that are not currently being used, but for which we have plans to implement uses, include <excerpt> and <tag>, with planned support for multiple <tag> entries in the same blog post.
+Additional optional tags that are not currently being used, but for which we have plans to implement uses, include `<excerpt>` and `<tag>`, with planned support for multiple `<tag>` entries in the same blog post.  
+
+The `<content>` tag currently supports a subset Markdown symbols. Complete support of all Markdown syntax is planned for the future. The following Markdown elements are currently supported:
+
+- Heading - #, ##, ###, etc.
+- Bold - \*\*bold text\*\*
+- Italic - \*italicized text\*
+- Bold & Italic - \*\*\*bold and italicized text\*\*\*
+- Link - \[title\]\(https://www.example.com\)
+- Image - !\[alt text\]\(image.jpg\)
