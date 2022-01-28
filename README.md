@@ -4,6 +4,21 @@
 
 The goal of this project is to create an open-source portfolio web system that anyone can use to develop a personal online presence through blogging and portfolio building.
 
+### Configuration
+
+You can customize a deployment of the Portfolio Web System through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular configuration setting.
+
+The following configuration settings are currently supported by the portfolio web system:  
+- **domain** - The domain name of your website  
+- **title** - The text rendered in the heading  
+
+As an example, the following `config.json` file is used at [christianwestbrook.dev](https://www.christianwestbrook.dev/):  
+
+`{`  
+`"domain" : "https://www.christianwestbrook.dev",`  
+`"title"  : "christianwestbrook.dev"`  
+`}`  
+
 ### Authoring Blog Posts
 
 Individual blog posts are stored in XML format in the `/blogs/` directory. To add new blog posts to the system simply store your new posts in the following XML format and place them in the `/blogs/` directory. The web system will detect all blog posts stored in this directory and render in order from the most recent post to the oldest post.

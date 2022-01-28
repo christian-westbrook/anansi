@@ -15,11 +15,20 @@
 	</head>
 
 	<body>
-		<div id="header">
-			<a href="/"><h3>christianwestbrook.dev</h3></a>
-		</div>
-
 		<?php
+			# Load and read system configuration file
+			$configFile = fopen("config.json", "r") or die("Unable to find config.json");
+			$configJson = fread($configFile, filesize("config.json"));
+			fclose($configFile);
+
+			# Extract configuration settings from raw JSON
+			$config = json_decode($configJson);
+
+			# Build the header
+			echo "<div id=\"header\">";
+			echo "<a href=\"$config->domain\"><h3>$config->title</h3></a>";
+			echo "</div>";
+
 			# Build the blog feed using a BlogEngine object
 			$blogEngine = new BlogEngine('./blogs/');
 			$blogFeed = $blogEngine->generateBlogFeed();
