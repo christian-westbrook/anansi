@@ -1,10 +1,10 @@
 # Portfolio Web System
 
-### Introduction
+## Introduction
 
 The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-web-system/) is an open-source solution that anyone can use to develop a personal online presence through blogging and portfolio building.  
 
-### Table of Contents
+## Table of Contents
 - Introduction
 - Table of Contents
 - Getting Started
@@ -13,11 +13,11 @@ The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-
 - Stack Example
 - Release Example
 
-### Getting Started
+## Getting Started
 
 Start by cloning the repository
 
-### Configuration
+## Configuration
 
 You can customize a deployment of the Portfolio Web System through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular configuration setting.
 
@@ -25,14 +25,14 @@ The following configuration settings are currently supported by the portfolio we
 - **domain** - The domain name of your website  
 - **title** - The text rendered in the heading  
 
-As an example, the following `config.json` file is used at [christianwestbrook.dev](https://www.christianwestbrook.dev/):  
+As an example, the following `config.json` file is used at [christianwestbrook.dev](https://www.christianwestbrook.dev/).  
 
 `{`  
 `"domain" : "https://www.christianwestbrook.dev",`  
 `"title"  : "christianwestbrook.dev"`  
 `}`  
 
-### Authoring Blog Posts
+## Authoring Blog Posts
 
 Individual blog posts are stored in XML format in the `/blogs/` directory. To add new blog posts to the system simply store your new posts in the following XML format and place them in the `/blogs/` directory. The web system will detect all blog posts stored in this directory and render in order from the most recent post to the oldest post.
 
@@ -62,7 +62,7 @@ The `<content>` tag currently supports a subset Markdown symbols. Complete suppo
 - Link - \[title\]\(https://www.example.com\)
 - Image - !\[alt text\]\(image.jpg\)
 
-### Stack Example
+## Stack Example
 
 An example deployment of the portfolio web system can be found at [www.christianwestbrook.dev](https://www.christianwestbrook.dev). In this section we briefly describe the technology stack supporting site deployment at christianwestbrook.dev to demonstrate what a Portfolio Web System deployment could look like.  
 
@@ -74,7 +74,7 @@ An example deployment of the portfolio web system can be found at [www.christian
 - An SSL certificate enabling the servicing of HTTPS requests is provided by [CloudFlare](https://www.cloudflare.com/)
 - A deployment of the [Portfolio Web System](https://github.com/christian-westbrook/portfolio-web-system) is installed on the HTTP server
 
-### Release Example
+## Release Example
 
 In this section we briefly describe the release process supporting site deployment at christianwestbrook.dev to demonstrate what a Portfolio Web System release process could look like.
 
