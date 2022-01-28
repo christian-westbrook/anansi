@@ -2,7 +2,20 @@
 
 ### Introduction
 
-The goal of this project is to create an open-source portfolio web system that anyone can use to develop a personal online presence through blogging and portfolio building.
+The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-web-system/) is an open-source solution that anyone can use to develop a personal online presence through blogging and portfolio building.  
+
+### Table of Contents
+- Introduction
+- Table of Contents
+- Getting Started
+- Configuration
+- Authoring Blog Posts
+- Stack Example
+- Release Example
+
+### Getting Started
+
+Start by cloning the repository
 
 ### Configuration
 
