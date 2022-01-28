@@ -1,5 +1,9 @@
 # Portfolio Web System
 
+### Introduction
+
+The goal of this project is to create an open-source portfolio web system that anyone can use to develop a personal online presence through blogging and portfolio building.
+
 ### Authoring Blog Posts
 
 Individual blog posts are stored in XML format in the `/data/` directory. To add new blog posts to the system simply store your new posts in the following XML format and place them in the /data directory. The web system will detect all blog posts stored in this directory and render in order from the most recent post to the oldest post.
