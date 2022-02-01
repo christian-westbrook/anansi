@@ -4,8 +4,6 @@
 
 The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-web-system/) is an open-source solution that anyone can use to develop a personal online presence through blogging and portfolio building.  
 
-
-
 ## Table of Contents
 - [Introduction](#introduction)
 - [Table of Contents](#table-of-contents)
@@ -17,7 +15,18 @@ The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-
 
 ## Getting Started
 
-
+- Clone the [repository](https://github.com/christian-westbrook/portfolio-web-system.git) to your machine
+- Modify the `/public/config.json` file to customize the system to meet your needs
+	- Learn more in the [configuration](#configuration) section
+- Use `/public/blogs/demo.xml` as an example to start writing blogs
+	- Learn more in the [authoring blog posts](#authoring-blog-posts) section
+- Regularly back up `/blogs/`, `/img/`, and `config.json`
+- Move the contents of the `/public/` folder into a web server's deployment directory
+	- Must have [PHP](https://www.php.net/) installed on the machine hosting the system
+	- Must use a web server that supports PHP, such as [Apache HTTP Server](https://httpd.apache.org/)
+	- PHP needs to be [enabled](https://stackoverflow.com/questions/42654694/enable-php-apache2) if using Apache
+- Copy your `/blogs/`, `/img/`, and `config.json` into the deployment directory
+- Use a browser to navigate to the deployed system
 
 ## Configuration
 
