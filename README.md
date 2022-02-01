@@ -13,24 +13,38 @@
 
 The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-web-system/) is an open-source solution that anyone can use to develop a personal online presence through blogging and portfolio building.  
 
+Our project goals 
+
 The current release provides a simple blog engine that can quickly be configured, loaded with content, and deployed. Blog posts are written in a predefined XML and Markdown format.  
 
 Future releases will include support for interactions, an integrated project portfolio, and continued enhancements to the blog authoring process.  
 
 ## Getting Started
 
+In this section we explain how to quickly get up and running with the portfolio web system. If you don't quite hit all of the prerequisites, or if you get stuck at any point, feel free to reach out to the author. The best way to do so is to [create an issue](https://github.com/christian-westbrook/portfolio-web-system/issues).
+
+### Prerequisites
+- You have web server software installed and configured for PHP on your production machine
+	- [Apache HTTP Server](https://httpd.apache.org/) is free and supports PHP
+- You have [PHP](https://www.php.net/) installed on your production machine
+- You have [Git](https://git-scm.com/) installed on your production machine
+
+### Developing for your system
+
 - Clone the [repository](https://github.com/christian-westbrook/portfolio-web-system.git) to your machine
-- Modify the `/public/config.json` file to customize the system to meet your needs
+- Modify the cloned `/public/config.json` file to configure the system for your needs
 	- Learn more in the [configuration](#configuration) section
 - Use `/public/blogs/demo.xml` as an example to start writing blogs
 	- Learn more in the [authoring blog posts](#authoring-blog-posts) section
-- Regularly back up `/blogs/`, `/img/`, and `config.json`
-- Move the contents of the `/public/` folder into a web server's deployment directory
-	- Must have [PHP](https://www.php.net/) installed on the machine hosting the system
-	- Must use a web server that supports PHP, such as [Apache HTTP Server](https://httpd.apache.org/)
+- Place completed blogs into the `/public/blogs/` folder and referenced images into the `/public/img/` folder
+- Regularly back up `/public/blogs/`, `/public/img/`, and `config.json`
+
+### Deploying your system
+- Move the contents of the `/public/` folder into your web server's deployment directory
 	- PHP needs to be [enabled](https://stackoverflow.com/questions/42654694/enable-php-apache2) if using Apache
-- Copy your `/blogs/`, `/img/`, and `config.json` into the deployment directory
-- Use a browser to navigate to the deployed system
+- If kept separate, copy your `/blogs/`, `/img/`, and `config.json` into the deployment directory
+- Navigate to your deployed system using a web browser to confirm success
+	- Learn more in the [deployment](#deployment) section
 
 ## Configuration
 
@@ -109,6 +123,6 @@ In this section we briefly describe the release process supporting site deployme
 - Move desired image data into `//var/www/html/img/`
 - Navigate to [www.christianwestbrook.dev](https://www.christianwestbrook.dev) to confirm that the newly released web system is available
 
-## Author
+## Authors
 
-Christian Westbrook
+[Christian Westbrook](https://www.christianwestbrook.dev)
