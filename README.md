@@ -4,18 +4,20 @@
 
 The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-web-system/) is an open-source solution that anyone can use to develop a personal online presence through blogging and portfolio building.  
 
+
+
 ## Table of Contents
-- Introduction
-- Table of Contents
-- Getting Started
-- Configuration
-- Authoring Blog Posts
-- Stack Example
-- Release Example
+- [Introduction](#introduction)
+- [Table of Contents](#table-of-contents)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [Authoring Blog Posts](#authoring-blog-posts)
+- [Stack Example](#stack-example)
+- [Release Example](#release-example)
 
 ## Getting Started
 
-Start by cloning the repository
+
 
 ## Configuration
 
