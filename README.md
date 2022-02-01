@@ -1,9 +1,5 @@
 # Portfolio Web System
 
-## Introduction
-
-The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-web-system/) is an open-source solution that anyone can use to develop a personal online presence through blogging and portfolio building.  
-
 ## Table of Contents
 - [Introduction](#introduction)
 - [Table of Contents](#table-of-contents)
@@ -12,6 +8,14 @@ The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-
 - [Authoring Blog Posts](#authoring-blog-posts)
 - [Stack Example](#stack-example)
 - [Release Example](#release-example)
+
+## Introduction
+
+The [portfolio web system](https://www.github.com/christian-westbrook/portfolio-web-system/) is an open-source solution that anyone can use to develop a personal online presence through blogging and portfolio building.  
+
+The current release provides a simple blog engine that can quickly be configured, loaded with content, and deployed. Blog posts are written in a predefined XML and Markdown format.  
+
+Future releases will include support for interactions, an integrated project portfolio, and continued enhancements to the blog authoring process.  
 
 ## Getting Started
 
@@ -43,9 +47,11 @@ As an example, the following `config.json` file is used at [christianwestbrook.d
 `"title"  : "christianwestbrook.dev"`  
 `}`  
 
+More configuration settings are planned for future releases. To request a particular customization, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
+
 ## Authoring Blog Posts
 
-Individual blog posts are stored in XML format in the `/blogs/` directory. To add new blog posts to the system simply store your new posts in the following XML format and place them in the `/blogs/` directory. The web system will detect all blog posts stored in this directory and render in order from the most recent post to the oldest post.
+Individual blog posts are stored in XML format in the `/blogs/` directory. To add a new blog post to the system, create a new blog file using the following XML format and place it in the `/blogs/` directory. The system will detect all blog posts stored in this directory and render them in order from the most recent post to the oldest post.
 
 The following demonstrates the minimum requirements for a single blog post.
 
@@ -62,7 +68,7 @@ The following demonstrates the minimum requirements for a single blog post.
 </blog>
 ```
 
-Additional optional tags that are not currently being used, but for which we have plans to implement uses, include `<excerpt>` and `<tag>`, with planned support for multiple `<tag>` entries in the same blog post.  
+Additional optional tags that are not currently being used, but for which we have plans to implement, include `<excerpt>` and `<tag>`, with planned support for multiple `<tag>` entries in the same blog post.  
 
 The `<content>` tag currently supports a subset Markdown symbols. Complete support of all Markdown syntax is planned for the future. The following Markdown elements are currently supported:
 
@@ -72,6 +78,8 @@ The `<content>` tag currently supports a subset Markdown symbols. Complete suppo
 - Bold & Italic - \*\*\*bold and italicized text\*\*\*
 - Link - \[title\]\(https://www.example.com\)
 - Image - !\[alt text\]\(image.jpg\)
+
+More blog authoring features are planned for future releases. To request a particular feature, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
 
 ## Stack Example
 
@@ -100,3 +108,7 @@ In this section we briefly describe the release process supporting site deployme
 - Move desired blog data into `//var/www/html/blogs/`
 - Move desired image data into `//var/www/html/img/`
 - Navigate to [www.christianwestbrook.dev](https://www.christianwestbrook.dev) to confirm that the newly released web system is available
+
+## Author
+
+Christian Westbrook
