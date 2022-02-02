@@ -1,13 +1,14 @@
-# Portfolio Web System
+# Anansi
+
+An open-source blogging and portfolio engine that anyone can use to own their story. 🕷️
 
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-- [Getting Started](#getting-started)
-- [Configuration](#configuration)
-- [Authoring Blog Posts](#authoring-blog-posts)
-- [Deployment](#deployment)
-- [Technology Stack](#technology-stack)
+1. [Introduction](#introduction)
+2. [Getting Started](#getting-started)
+3. [Configuration](#configuration)
+4. [Authoring Blog Posts](#authoring-blog-posts)
+5. [Deployment](#deployment)
+6. [Technology Stack](#technology-stack)
 
 ## Introduction
 
