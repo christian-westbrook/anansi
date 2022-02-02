@@ -4,11 +4,12 @@ An open-source blogging and portfolio engine that anyone can use to own their st
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
-3. [Configuration](#configuration)
-4. [Authoring Blog Posts](#authoring-blog-posts)
-5. [Deployment](#deployment)
-6. [Technology Stack](#technology-stack)
+2. [Features](#features)
+3. [Getting Started](#getting-started)
+4. [Configuration](#configuration)
+5. [Authoring Blog Posts](#authoring-blog-posts)
+6. [Deployment](#deployment)
+7. [Technology Stack](#technology-stack)
 
 ## Introduction
 
@@ -16,9 +17,20 @@ An open-source blogging and portfolio engine that anyone can use to own their st
 
 By providing a solution for owning your platform, this project helps you to also own your content and your audience. Download the Anansi platform, quickly configure it to meet your needs, create inspiring content, and deploy.
 
-The current release provides a simple blog engine that can quickly be configured, loaded with content, and deployed. Blog posts are written in a predefined XML and Markdown format.  
+## Features
 
-Future releases will include support for interactions, an integrated project portfolio, and continued enhancements to the blog authoring process.  
+### Implemented
+- PHP blog engine
+- XML blog format
+- Partial parsing of Markdown in blog content
+- Configurable headers
+
+### Planned
+- Portfolio engine
+- Blog post pages
+- Blog post interactions
+- JavaScript front-end
+- Complete parsing of Markdown in blog content
 
 ## Getting Started
 
