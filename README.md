@@ -1,13 +1,13 @@
 # Portfolio Web System
 
 ## Table of Contents
-- [Introduction](#introduction)
 - [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
 - [Authoring Blog Posts](#authoring-blog-posts)
-- [Stack Example](#stack-example)
-- [Release Example](#release-example)
+- [Deployment](#deployment)
+- [Technology Stack](#technology-stack)
 
 ## Introduction
 
