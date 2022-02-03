@@ -64,20 +64,20 @@ This section provides brief instructions to quickly get started. If you get stuc
 
 ## Configuration
 
-You can customize a deployment of the Portfolio Web System through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular configuration setting.
+You can customize your deployment through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular setting. To change a setting, modify and save its value in the `config.json` file.
 
-The following configuration settings are currently supported by the portfolio web system:  
-- **domain** - The domain name of your website  
-- **title** - The text rendered in the heading  
+The following configuration settings are currently supported:  
+- **domain** - The domain name of your site  
+- **title** - The text rendered in the site heading  
 
-As an example, the following `config.json` file is used at [christianwestbrook.dev](https://www.christianwestbrook.dev/).  
+As an example, the following `config.json` file is deployed at [christianwestbrook.dev](https://www.christianwestbrook.dev/).  
 
 `{`  
 `"domain" : "https://www.christianwestbrook.dev",`  
 `"title"  : "christianwestbrook.dev"`  
 `}`  
 
-More configuration settings are planned for future releases. To request a particular customization, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
+More configuration settings are planned for future releases. To request a particular setting, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
 
 ## Authoring Blog Posts
 
