@@ -5,11 +5,11 @@ An open-source blogging and portfolio engine that anyone can use to own their st
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Features](#features)
-3. [Getting Started](#getting-started)
-4. [Configuration](#configuration)
-5. [Authoring Blog Posts](#authoring-blog-posts)
-6. [Deployment](#deployment)
-7. [Technology Stack](#technology-stack)
+3. [Access](#access)
+4. [Configure](#configure)
+5. [Create](#create)
+6. [Deploy](#deploy)
+7. [Help](#help)
 
 ## Introduction
 
@@ -34,21 +34,13 @@ By providing a solution for owning your platform, this project helps you to also
 
 ## Getting Started
 
-This section provides brief instructions to quickly get started. If you get stuck at any point, feel free to reach out for help. The best way to do so is to [create an issue](https://github.com/christian-westbrook/portfolio-web-system/issues).
+The following sections provides instructions to quickly get started. If you get stuck at any point, feel free to reach out for help. The best way to do so is to [create an issue](https://github.com/christian-westbrook/portfolio-web-system/issues).
 
 ### Prerequisites
 - You have [PHP](https://www.php.net/) installed on your production machine
 - You have web server software installed and configured to use PHP on your production machine
 	- [Apache HTTP Server](https://httpd.apache.org/) is free and supports PHP
 	- PHP needs to be [enabled](https://stackoverflow.com/questions/42654694/enable-php-apache2) if using Apache
-
-### Access
-- Clone the [repository](https://github.com/christian-westbrook/portfolio-web-system.git)
-
-### Configure
-- Modify `/public/config.json` to suit your needs
-- Regularly back up `/public/config.json`
-	- Learn more in the [configuration](#configuration) section
 
 ### Create
 - Use `/public/blogs/demo.xml` as an example to start writing blogs
@@ -62,9 +54,13 @@ This section provides brief instructions to quickly get started. If you get stuc
 - Navigate to your deployed system using a web browser to confirm success
 	- Learn more in the [deployment](#deploy) section
 
-## Configuration
+## Access
 
-You can customize your deployment through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular setting. To change a setting, modify and save its value in the `config.json` file.
+You can access the Anansi platform by either cloning the [repository](https://github.com/christian-westbrook/portfolio-web-system.git) or by downloading the latest [release](https://github.com/christian-westbrook/anansi/releases).
+
+## Configure
+
+You can customize your deployment through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular setting. To change a setting, modify and save its value in the `config.json` file. It's a good idea to regularly back up this file.
 
 The following configuration settings are currently supported:  
 - **domain** - The domain name of your site  
@@ -79,11 +75,11 @@ As an example, the following `config.json` file is deployed at [christianwestbro
 
 More configuration settings are planned for future releases. To request a particular setting, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
 
-## Authoring Blog Posts
+## Create
 
-Individual blog posts are stored in XML format in the `/blogs/` directory. To add a new blog post to the system, create a new blog file using the following XML format and place it in the `/blogs/` directory. The system will detect all blog posts stored in this directory and render them in order from the most recent post to the oldest post.
+Blog posts are defined in XML format and stored in the `/public/blogs/` directory. To add a new blog post to the system, create a new blog file using the following XML format and place it in the `/public/blogs/` directory. The blog engine will detect all blog files stored in this directory and render them as blog posts in order from the most recent post to the oldest post.
 
-The following demonstrates the minimum requirements for a single blog post.
+The following code block demonstrates the minimal requirements for a single blog post.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -111,19 +107,7 @@ The `<content>` tag currently supports a subset Markdown symbols. Complete suppo
 
 More blog authoring features are planned for future releases. To request a particular feature, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
 
-## Stack Example
-
-An example deployment of the portfolio web system can be found at [www.christianwestbrook.dev](https://www.christianwestbrook.dev). In this section we briefly describe the technology stack supporting site deployment at christianwestbrook.dev to demonstrate what a Portfolio Web System deployment could look like.  
-
-- The domain name [www.christianwestbrook.dev](https://www.christianwestbrook.dev) is registered at [Google Domains](https://domains.google/)
-- DNS service connecting the domain name to the origin network is provided by [CloudFlare](https://www.cloudflare.com/)
-- Requests transmitted to the origin network are routed to the origin server through configured port forwarding
-- The origin server is a [Raspberry Pi](https://www.raspberrypi.com/) computer
-- An [Apache HTTP Server](https://httpd.apache.org/) deployed to the origin server processes web requests
-- An SSL certificate enabling the servicing of HTTPS requests is provided by [CloudFlare](https://www.cloudflare.com/)
-- A deployment of the [Portfolio Web System](https://github.com/christian-westbrook/portfolio-web-system) is installed on the HTTP server
-
-## Release Example
+## Deploy
 
 In this section we briefly describe the release process supporting site deployment at christianwestbrook.dev to demonstrate what a Portfolio Web System release process could look like.
 
