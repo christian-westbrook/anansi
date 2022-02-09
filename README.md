@@ -1,6 +1,6 @@
-# Anansi
+# Anansi 🕷️
 
-An open-source blogging and portfolio engine that anyone can use to own their story. 🕷️
+An open-source blogging and portfolio engine that anyone can use to own their story.
 
 ## Table of Contents
 1. [Introduction](#introduction)
