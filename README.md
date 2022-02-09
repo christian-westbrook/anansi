@@ -56,7 +56,7 @@ The following sections provides instructions to quickly get started. If you get 
 
 ## Access
 
-You can access the Anansi platform by either cloning the [repository](https://github.com/christian-westbrook/portfolio-web-system.git) or by downloading the latest [release](https://github.com/christian-westbrook/anansi/releases).
+You can acquire a copy of the Anansi platform by either cloning the [repository](https://github.com/christian-westbrook/anansi) or by downloading its latest [release](https://github.com/christian-westbrook/anansi/releases). You can then configure your copy to meet your needs, load your copy with blog content, and deploy your copy to a web server. 
 
 ## Configure
 
