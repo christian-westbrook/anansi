@@ -21,9 +21,9 @@ Anansi provides a blog engine with a simple XML interface for creating blogs. By
 
 ### Implemented
 - PHP blog engine
-- XML blog format
+- XML blog definition
+- Configurable header
 - Partial parsing of Markdown in blog content
-- Configurable headers
 
 ### Planned
 - Portfolio engine
