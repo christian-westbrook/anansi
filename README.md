@@ -15,7 +15,7 @@ An open-source blogging and portfolio engine that anyone can use to own their st
 
 [Anansi](https://www.github.com/christian-westbrook/portfolio-web-system/) is a web system designed to help creative professionals not only tell their stories, but own them.
 
-Anansi provides a blog engine and a simple XML interface for creating blogs. By providing a platform that you can own, this project helps you to also own your content and your audience. Download the Anansi platform, quickly configure it to meet your needs, create inspiring content, and deploy.
+Anansi provides a blog engine with a simple XML interface for creating blogs. By providing a platform that you can own, Anansi helps you to also own your content and your audience. Download the Anansi platform, quickly configure it to meet your needs, create inspiring content, and deploy.
 
 ## Features
 
