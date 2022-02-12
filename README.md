@@ -13,7 +13,7 @@ An open-source blogging and portfolio engine that anyone can use to own their st
 
 ## Introduction
 
-[Anansi](https://www.github.com/christian-westbrook/portfolio-web-system/) is a web system designed to help creative professionals not only tell their stories, but own them.
+[Anansi](https://www.github.com/christian-westbrook/anansi/) is a web system designed to help creative professionals not only tell their stories, but own them.
 
 Anansi provides a blog engine with a simple XML interface for creating blogs. By providing a platform that you can own, Anansi helps you to also own your content and your audience. Download the Anansi platform, quickly configure it to meet your needs, create inspiring content, and deploy.
 
@@ -34,7 +34,7 @@ Anansi provides a blog engine with a simple XML interface for creating blogs. By
 
 ## Getting Started
 
-The following sections provides instructions to quickly get started. If you get stuck at any point, feel free to reach out for help. The best way to do so is to [create an issue](https://github.com/christian-westbrook/portfolio-web-system/issues).
+The following sections provides instructions to quickly get started. If you get stuck at any point, feel free to reach out for help. The best way to do so is to [create an issue](https://github.com/christian-westbrook/anansi/issues).
 
 ### Prerequisites
 - You have [PHP](https://www.php.net/) installed on your production machine
@@ -64,7 +64,7 @@ You can customize your deployment through the use of system configuration settin
 
 The following configuration settings are currently supported:  
 - **domain** - The domain name of your site  
-- **title** - The text rendered in the site heading  
+- **title** - Text to be rendered in the site header  
 
 As an example, the following `config.json` file is deployed at [christianwestbrook.dev](https://www.christianwestbrook.dev/).  
 
@@ -73,13 +73,17 @@ As an example, the following `config.json` file is deployed at [christianwestbro
 `"title"  : "christianwestbrook.dev"`  
 `}`  
 
-More configuration settings are planned for future releases. To request a particular setting, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
+More configuration settings are planned for future releases. To request a particular setting, feel free to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `enhancement` label.
 
 ## Create
 
-Blog posts are defined in XML format and stored in the `/public/blogs/` directory. To add a new blog post to the system, create a new blog file using the following XML format and place it in the `/public/blogs/` directory. The blog engine will detect all blog files stored in this directory and render them as blog posts in order from the most recent post to the oldest post.
+Blog posts are defined in an XML format and stored in the `/public/blogs/` directory. To add a new blog post to the system, create a new blog file using the following XML format and place it in the `/public/blogs/` directory. The blog engine will detect and render all blog files stored in this directory.
 
-The following code block demonstrates the minimal requirements for a single blog post.
+To quickly get started with creating blogs, you can use the file `/public/blogs/demo.xml` as an example.
+
+To preview what your blog feed will look like deployed, open a terminal or command prompt and navigate to the `/public/` directory. If you have PHP installed, you can start a local server that will host your copy of the Anansi platform by using a command like `php -S localhost:8000` from inside the `/public/` directory. You can then navigate to the preview using a web browser, which in this example would be located at `http://localhost:8000` 
+
+The following block defines the minimum requirements for a single blog post.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -94,18 +98,19 @@ The following code block demonstrates the minimal requirements for a single blog
 </blog>
 ```
 
-Additional optional tags that are not currently being used, but for which we have plans to implement, include `<excerpt>` and `<tag>`, with planned support for multiple `<tag>` entries in the same blog post.  
+Optional tags that are not currently supported but that have plans to be implemented include `<excerpt>` and `<tag>`, both of which are demonstrated in the file `/public/blogs/demo.xml`.
 
 The `<content>` tag currently supports a subset Markdown symbols. Complete support of all Markdown syntax is planned for the future. The following Markdown elements are currently supported:
 
 - Heading - #, ##, ###, etc.
+- Newline - Two consecutive spaces trailing a line
 - Bold - \*\*bold text\*\*
 - Italic - \*italicized text\*
 - Bold & Italic - \*\*\*bold and italicized text\*\*\*
 - Link - \[title\]\(https://www.example.com\)
 - Image - !\[alt text\]\(image.jpg\)
 
-More blog authoring features are planned for future releases. To request a particular feature, feel free to submit an issue [here](https://github.com/christian-westbrook/portfolio-web-system/issues) using the `enhancement` label.
+We want to help you create inspiring content. More blog authoring features are planned for future releases. To request a particular feature, feel free to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `enhancement` label.
 
 ## Deploy
 
