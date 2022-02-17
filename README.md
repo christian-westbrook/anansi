@@ -9,7 +9,8 @@ An open-source blogging and portfolio engine that anyone can use to own their st
 4. [Configure](#configure)
 5. [Create](#create)
 6. [Deploy](#deploy)
-7. [Help](#help)
+7. [Getting Help](#getting-help)
+8. [Authors](#authors)
 
 ## Introduction
 
@@ -26,33 +27,12 @@ Anansi provides a blog engine with a simple XML interface for creating blogs. By
 - Partial parsing of Markdown in blog content
 
 ### Planned
+- About me page
 - Portfolio engine
 - Blog post pages
 - Blog post interactions
 - JavaScript front-end
 - Complete parsing of Markdown in blog content
-
-## Getting Started
-
-The following sections provides instructions to quickly get started. If you get stuck at any point, feel free to reach out for help. The best way to do so is to [create an issue](https://github.com/christian-westbrook/anansi/issues).
-
-### Prerequisites
-- You have [PHP](https://www.php.net/) installed on your production machine
-- You have web server software installed and configured to use PHP on your production machine
-	- [Apache HTTP Server](https://httpd.apache.org/) is free and supports PHP
-	- PHP needs to be [enabled](https://stackoverflow.com/questions/42654694/enable-php-apache2) if using Apache
-
-### Create
-- Use `/public/blogs/demo.xml` as an example to start writing blogs
-- Place completed blogs into the `/public/blogs/` folder and referenced images into the `/public/img/` folder
-- Regularly back up `/public/blogs/` and `/public/img/`
-	- Learn more in the [authoring blog posts](#authoring-blog-posts) section
-
-### Deploy
-- Move the contents of the `/public/` folder into your web server's deployment directory
-- If kept separate, copy your `/blogs/`, `/img/`, and `config.json` into the deployment directory
-- Navigate to your deployed system using a web browser to confirm success
-	- Learn more in the [deployment](#deploy) section
 
 ## Access
 
@@ -77,11 +57,11 @@ More configuration settings are planned for future releases. To request a partic
 
 ## Create
 
-Blog posts are defined in an XML format and stored in the `/public/blogs/` directory. To add a new blog post to the system, create a new blog file using the following XML format and place it in the `/public/blogs/` directory. The blog engine will detect and render all blog files stored in this directory.
+Blog posts are defined in an XML format and stored in the `/public/blogs/` directory. To add a new blog post to your system, create a new blog file using the following XML format and place it in the `/public/blogs/` directory. The blog engine will detect and render all blog files stored in this directory.
 
 To quickly get started with creating blogs, you can use the file `/public/blogs/demo.xml` as an example.
 
-To preview what your blog feed will look like deployed, open a terminal or command prompt and navigate to the `/public/` directory. If you have PHP installed, you can start a local server that will host your copy of the Anansi platform by using a command like `php -S localhost:8000` from inside the `/public/` directory. You can then navigate to the preview using a web browser, which in this example would be located at `http://localhost:8000` 
+To preview what your blog feed will look like once it's deployed, open a terminal or command prompt session and navigate to the `/public/` directory. If you have PHP installed, you can start a local server that will host your copy of the Anansi platform by using a command like `php -S localhost:8000` from inside the `/public/` directory. You can then navigate to the preview using a web browser, which in this example would be located at `http://localhost:8000` 
 
 The following block defines the minimum requirements for a single blog post.
 
@@ -110,23 +90,23 @@ The `<content>` tag currently supports a subset Markdown symbols. Complete suppo
 - Link - \[title\]\(https://www.example.com\)
 - Image - !\[alt text\]\(image.jpg\)
 
-We want to help you create inspiring content. More blog authoring features are planned for future releases. To request a particular feature, feel free to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `enhancement` label.
+Local images should be stored in the `/public/img/` directory for convenience. An example of a reference to an image file from inside a blog file can be found in the file `/public/blogs/demo.xml`.  
+
+Be sure to regularly back up both your `/public/blog/` and `/public/img/` directories.
+
+We want to help you create inspiring content. More blog authoring features in future releases will help you do that. To request a particular feature, feel free to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `enhancement` label.
 
 ## Deploy
 
-In this section we briefly describe the release process supporting site deployment at christianwestbrook.dev to demonstrate what a Portfolio Web System release process could look like.
+Before attempting to deploy, ensure that you have access to a [web server](https://httpd.apache.org/) configured to read [PHP](https://www.php.net/) files.
 
-- Ensure that the origin Raspberry Pi server is online
-- Connect to the origin server
-- Ensure that the Apache HTTP Server is online with the terminal command `service apache2 start`
-- Clone the repository onto the origin server
-- Check out and pull the target release branch
-- Create a backup of the existing deployment by zipping all contents of the Apache HTTP Server deployment directory at `//var/www/html/`
-- Copy all contents of the `/public/` directory within the repository to the Apache HTTP Server deployment directory at `//var/www/html/`
-- Create an `/img/` directory within the Apache HTTP Server deployment directory at `//var/www/html/`
-- Move desired blog data into `//var/www/html/blogs/`
-- Move desired image data into `//var/www/html/img/`
-- Navigate to [www.christianwestbrook.dev](https://www.christianwestbrook.dev) to confirm that the newly released web system is available
+Releasing your copy of the Anansi platform is as simple as moving the contents of your `/public/` folder into your web server's public directory.  
+
+Your blog files should be stored in the deployed `/blogs/` folder and your images in the deployed `/img/` folder. If you've kept your `config.json` file separate, then be sure to include it in your deployment as well.  
+
+## Getting Help
+
+If you have any issues getting started with Anansi, feel free to reach out to the authors for help. The best way to do this would be to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `help wanted` or `question` labels.
 
 ## Authors
 
