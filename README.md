@@ -1,25 +1,69 @@
-# Portfolio Web System
+# Anansi 🕷️
 
-### Configuration
+An open-source blogging and portfolio engine that anyone can use to own their story.
 
-You can customize a deployment of the Portfolio Web System through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular configuration setting.
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Access](#access)
+4. [Configure](#configure)
+5. [Create](#create)
+6. [Deploy](#deploy)
+7. [Getting Help](#getting-help)
+8. [Authors](#authors)
 
-The following configuration settings are currently supported by the portfolio web system:  
-- **domain** - The domain name of your website  
-- **title** - The text rendered in the heading  
+## Introduction
 
-As an example, the following `config.json` file is used at [christianwestbrook.dev](https://www.christianwestbrook.dev/):  
+[Anansi](https://www.github.com/christian-westbrook/anansi/) is a web system designed to help creative professionals not only tell their stories, but own them.
+
+Anansi provides a blog engine with a simple XML interface for creating blogs. By providing a platform that you can own, Anansi helps you to also own your content and your audience. Download the Anansi platform, quickly configure it to meet your needs, create inspiring content, and deploy.
+
+## Features
+
+### Implemented
+- PHP blog engine
+- XML blog definition
+- Configurable header
+- Partial parsing of Markdown in blog content
+
+### Planned
+- About me page
+- Portfolio engine
+- Blog post pages
+- Blog post interactions
+- JavaScript front-end
+- Complete parsing of Markdown in blog content
+
+## Access
+
+You can acquire a copy of the Anansi platform by either cloning the [repository](https://github.com/christian-westbrook/anansi) or by downloading its latest [release](https://github.com/christian-westbrook/anansi/releases). You can then configure your copy to meet your needs, load your copy with blog content, and deploy your copy to a web server. 
+
+## Configure
+
+You can customize your deployment through the use of system configuration settings located in the file `/public/config.json`. Each entry within this JSON file represents a particular setting. To change a setting, modify and save its value in the `config.json` file. It's a good idea to regularly back up this file.
+
+The following configuration settings are currently supported:  
+- **domain** - The domain name of your site  
+- **title** - Text to be rendered in the site header  
+
+As an example, the following `config.json` file is deployed at [christianwestbrook.dev](https://www.christianwestbrook.dev/).  
 
 `{`  
 `"domain" : "https://www.christianwestbrook.dev",`  
 `"title"  : "christianwestbrook.dev"`  
 `}`  
 
-### Authoring Blog Posts
+More configuration settings are planned for future releases. To request a particular setting, feel free to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `enhancement` label.
 
-Individual blog posts are stored in XML format in the `/data/` directory. To add new blog posts to the system simply store your new posts in the following XML format and place them in the /data directory. The web system will detect all blog posts stored in this directory and render in order from the most recent post to the oldest post.
+## Create
 
-The following demonstrates the minimum requirements for a single blog post.
+Blog posts are defined in an XML format and stored in the `/public/blogs/` directory. To add a new blog post to your system, create a new blog file using the following XML format and place it in the `/public/blogs/` directory. The blog engine will detect and render all blog files stored in this directory.
+
+To quickly get started with creating blogs, you can use the file `/public/blogs/demo.xml` as an example.
+
+To preview what your blog feed will look like once it's deployed, open a terminal or command prompt session and navigate to the `/public/` directory. If you have PHP installed, you can start a local server that will host your copy of the Anansi platform by using a command like `php -S localhost:8000` from inside the `/public/` directory. You can then navigate to the preview using a web browser, which in this example would be located at `http://localhost:8000` 
+
+The following block defines the minimum requirements for a single blog post.
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -34,41 +78,36 @@ The following demonstrates the minimum requirements for a single blog post.
 </blog>
 ```
 
-Additional optional tags that are not currently being used, but for which we have plans to implement uses, include `<excerpt>` and `<tag>`, with planned support for multiple `<tag>` entries in the same blog post.  
+Optional tags that are not currently supported but that have plans to be implemented include `<excerpt>` and `<tag>`, both of which are demonstrated in the file `/public/blogs/demo.xml`.
 
 The `<content>` tag currently supports a subset Markdown symbols. Complete support of all Markdown syntax is planned for the future. The following Markdown elements are currently supported:
 
 - Heading - #, ##, ###, etc.
+- Newline - Two consecutive spaces trailing a line
 - Bold - \*\*bold text\*\*
 - Italic - \*italicized text\*
 - Bold & Italic - \*\*\*bold and italicized text\*\*\*
 - Link - \[title\]\(https://www.example.com\)
 - Image - !\[alt text\]\(image.jpg\)
 
-### Stack Example
+Local images should be stored in the `/public/img/` directory for convenience. An example of a reference to an image file from inside a blog file can be found in the file `/public/blogs/demo.xml`.  
 
-An example deployment of the portfolio web system can be found at [www.christianwestbrook.dev](https://www.christianwestbrook.dev). In this section we briefly describe the technology stack supporting site deployment at christianwestbrook.dev to demonstrate what a Portfolio Web System deployment could look like.  
+Be sure to regularly back up both your `/public/blog/` and `/public/img/` directories.
 
-- The domain name [www.christianwestbrook.dev](https://www.christianwestbrook.dev) is registered at [Google Domains](https://domains.google/)
-- DNS service connecting the domain name to the origin network is provided by [CloudFlare](https://www.cloudflare.com/)
-- Requests transmitted to the origin network are routed to the origin server through configured port forwarding
-- The origin server is a [Raspberry Pi](https://www.raspberrypi.com/) computer
-- An [Apache HTTP Server](https://httpd.apache.org/) deployed to the origin server processes web requests
-- An SSL certificate enabling the servicing of HTTPS requests is provided by [CloudFlare](https://www.cloudflare.com/)
-- A deployment of the [Portfolio Web System](https://github.com/christian-westbrook/portfolio-web-system) is installed on the HTTP server
+We want to help you create inspiring content. More blog authoring features in future releases will help you do that. To request a particular feature, feel free to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `enhancement` label.
 
-### Release Example
+## Deploy
 
-In this section we briefly describe the release process supporting site deployment at christianwestbrook.dev to demonstrate what a Portfolio Web System release process could look like.
+Before attempting to deploy, ensure that you have access to a [web server](https://httpd.apache.org/) configured to read [PHP](https://www.php.net/) files.
 
-- Ensure that the origin Raspberry Pi server is online
-- Connect to the origin server
-- Ensure that the Apache HTTP Server is online with the terminal command `service apache2 start`
-- Clone the repository onto the origin server
-- Check out and pull the target release branch
-- Create a backup of the existing deployment by zipping all contents of the Apache HTTP Server deployment directory at `//var/www/html/`
-- Copy all contents of the `/public/` directory within the repository to the Apache HTTP Server deployment directory at `//var/www/html/`
-- Create an `/img/` directory within the Apache HTTP Server deployment directory at `//var/www/html/`
-- Move desired blog data into `//var/www/html/blogs/`
-- Move desired image data into `//var/www/html/img/`
-- Navigate to [www.christianwestbrook.dev](https://www.christianwestbrook.dev) to confirm that the newly released web system is available
+Releasing your copy of the Anansi platform is as simple as moving the contents of your `/public/` folder into your web server's public directory.  
+
+Your blog files should be stored in the deployed `/blogs/` folder and your images in the deployed `/img/` folder. If you've kept your `config.json` file separate, then be sure to include it in your deployment as well.  
+
+## Getting Help
+
+If you have any issues getting started with Anansi, feel free to reach out to the authors for help. The best way to do this would be to submit an issue [here](https://github.com/christian-westbrook/anansi/issues) using the `help wanted` or `question` labels.
+
+## Authors
+
+[Christian Westbrook](https://www.christianwestbrook.dev)

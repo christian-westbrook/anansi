@@ -1,2 +1,4 @@
-public/data/*.xml
-!public/data/demo.xml
+public/blogs/*.xml
+!public/blogs/demo.xml
+public/img/*
+!public/img/blue-profile-header.jpg
