@@ -9,7 +9,6 @@
 class XMLEngine {
 
 	// ----------------------- Public Interface ---------------------------------
-
 	// ---------------------------------------------------------------------------
 	// Method     : extractBlogFromXML()
 	// Engineer   : Christian Westbrook
@@ -132,8 +131,13 @@ class XMLEngine {
 		}
 
 		fclose($handle);
+
+		// Generate a sortable datetime and attach it to the blog
+		$blog['sortableDateTime'] = $this->generateSortableDateTime($blog['date'], $blog['time']);
+
 		return $blog;
 	}
+	// ---------------------------------------------------------------------------
 
 	// ---------------------------------------------------------------------------
 	// Method     : convertXMLBlogToHTML()
@@ -306,6 +310,39 @@ class XMLEngine {
 
 		return $transformation;
 	}
+	// ---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
+
+	// ----------------------- Private Interface --------------------------------
+	// ---------------------------------------------------------------------------
+	// Method     : generateSortableDateTime()
+	// Engineer   : Christian Westbrook
+	// Parameters : $date - A string representing the date at which a blog post
+	//              was, or will be, posted. Format: MM/DD/YYYY
+	//
+	//              $time - A string representing the time of day at which a blog
+	//              post was, or will be, posted. Format: HH:MM
+	//
+	// Output     : $sortableDateTime - A string representing the date and time
+	//              of day at which a blog post was, or will be, posted in a format
+	//              that is more easily sorted. Format: YYYYMMDDHHMM
+	//
+	// Abstract   : This method converts the date and time extracted from a blog
+	//              XML file into a single string variable formatted for use as
+	//              a key to sort blog posts against.
+	// ---------------------------------------------------------------------------
+	private function generateSortableDateTime($date, $time) {
+
+		// Split the date and time strings into elements
+		[$month, $day, $year] = explode("/", $date);
+		[$hour, $minute] = explode(":", $time);
+
+		// Recombine the elements from highest to lowest priority when sorting
+		$sortableDateTime = $year . $month . $day . $hour . $minute;
+
+		return $sortableDateTime;
+	}
+	// --------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------
 }
 ?>
