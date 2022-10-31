@@ -140,7 +140,23 @@ class XMLEngine {
 	// ---------------------------------------------------------------------------
 
 	// ---------------------------------------------------------------------------
-	// Method     : convertXMLBlogToHTML()
+	// ---------------------------------------------------------------------------
+	public function getBlogHTML($blog) {
+		return $this->convertXMLBlogDataToHTML($blog, 'content');
+	}
+	// ---------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
+	public function getBlogExcerptHTML($blog) {
+		return $this->convertXMLBlogDataToHTML($blog, 'excerpt');
+	}
+	// ---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
+
+	// ----------------------- Private Interface ---------------------------------
+	// ---------------------------------------------------------------------------
+	// Method     : convertXMLBlogDataToHTML()
 	// Engineer   : Christian Westbrook
 	// Parameters : $blog - A dictionary holding an individual blog's XML tags
 	//              mapped to their respective content.
@@ -151,7 +167,7 @@ class XMLEngine {
 	//              predefined HTML template representing a blog post. This HTML
 	//              content is then returned as a string.
 	// ---------------------------------------------------------------------------
-	public function convertXMLBlogToHTML($blog) {
+	private function convertXMLBlogDataToHTML($blog, $content_key) {
 		# Append all desired HTML content to this string
 		$transformation = '';
 
@@ -170,7 +186,7 @@ class XMLEngine {
 
 		# Body
 		$transformation .= '<div class="content">';
-		$content = $blog['content'];
+		$content = $blog[$content_key];
 
 		$lines = explode("\n", $content);
 
@@ -311,9 +327,7 @@ class XMLEngine {
 		return $transformation;
 	}
 	// ---------------------------------------------------------------------------
-	// ---------------------------------------------------------------------------
 
-	// ----------------------- Private Interface --------------------------------
 	// ---------------------------------------------------------------------------
 	// Method     : generateSortableDateTime()
 	// Engineer   : Christian Westbrook
