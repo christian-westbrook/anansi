@@ -191,6 +191,7 @@ class XMLEngine {
 		$lines = explode("\n", $content);
 
 		# Markdown parser
+		# For each line of blog content
 		foreach($lines as $line) {
 			# Trim leading whitespace
 			$line = ltrim($line);
@@ -200,7 +201,9 @@ class XMLEngine {
 				continue;
 			}
 
-			# Process images
+			# ------------------------------------------------------------------
+			# PROCESS IMAGES
+			# ------------------------------------------------------------------
 			if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$reduced = $match;
@@ -217,7 +220,9 @@ class XMLEngine {
 				}
 			}
 
-			# Process links
+			# ------------------------------------------------------------------
+			# PROCESS HYPERLINKS
+			# ------------------------------------------------------------------
 			if(preg_match_all('/\[[\w\s\.-]+\]\([\w\.\:\/\_-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					foreach($match as $original) {
@@ -236,7 +241,9 @@ class XMLEngine {
 				}
 			}
 
-			# Process bolding and italics
+			# ------------------------------------------------------------------
+			# PROCESS BOLDING AND ITALICS
+			# ------------------------------------------------------------------
 			if(preg_match('/\*\*\*[\w\s\!\?\.,]+\*\*\*/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '*');
@@ -286,7 +293,9 @@ class XMLEngine {
 				}
 			}
 
-			# Process headings
+			# ------------------------------------------------------------------
+			# PROCESS HEADINGS
+			# ------------------------------------------------------------------
 			if(preg_match('/######.+/i', $line)) {
 				$target = ltrim($line, '#');
 				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
@@ -311,6 +320,10 @@ class XMLEngine {
 				$target = ltrim($line, '#');
 				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
 			}
+
+			# ------------------------------------------------------------------
+			# PROCESS UNORDERED LISTS
+			# ------------------------------------------------------------------
 
 			# Add a line break if you find two spaces at the end of a line
 			if(ctype_space(substr($line, -3))) {
