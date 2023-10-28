@@ -168,6 +168,11 @@ class XMLEngine {
 	//              content is then returned as a string.
 	// ---------------------------------------------------------------------------
 	private function convertXMLBlogDataToHTML($blog, $content_key) {
+
+		// Control variables
+		$state = array();
+		$state['inUnorderedList'] = false;
+
 		# Append all desired HTML content to this string
 		$transformation = '';
 
@@ -191,6 +196,7 @@ class XMLEngine {
 		$lines = explode("\n", $content);
 
 		# Markdown parser
+		# For each line of blog content
 		foreach($lines as $line) {
 			# Trim leading whitespace
 			$line = ltrim($line);
@@ -200,7 +206,9 @@ class XMLEngine {
 				continue;
 			}
 
-			# Process images
+			# ------------------------------------------------------------------
+			# PROCESS IMAGES
+			# ------------------------------------------------------------------
 			if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$reduced = $match;
@@ -217,7 +225,9 @@ class XMLEngine {
 				}
 			}
 
-			# Process links
+			# ------------------------------------------------------------------
+			# PROCESS HYPERLINKS
+			# ------------------------------------------------------------------
 			if(preg_match_all('/\[[\w\s\.-]+\]\([\w\.\:\/\_-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					foreach($match as $original) {
@@ -236,7 +246,9 @@ class XMLEngine {
 				}
 			}
 
-			# Process bolding and italics
+			# ------------------------------------------------------------------
+			# PROCESS BOLDING AND ITALICS
+			# ------------------------------------------------------------------
 			if(preg_match('/\*\*\*[\w\s\!\?\.,]+\*\*\*/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '*');
@@ -286,7 +298,9 @@ class XMLEngine {
 				}
 			}
 
-			# Process headings
+			# ------------------------------------------------------------------
+			# PROCESS HEADINGS
+			# ------------------------------------------------------------------
 			if(preg_match('/######.+/i', $line)) {
 				$target = ltrim($line, '#');
 				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
@@ -310,6 +324,31 @@ class XMLEngine {
 			if(preg_match('/#.+/i', $line)) {
 				$target = ltrim($line, '#');
 				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
+			}
+
+			# ------------------------------------------------------------------
+			# PROCESS UNORDERED LISTS
+			# ------------------------------------------------------------------
+			if(preg_match('/\*.+/i', $line)) {
+
+				# Remove the leading asterisk
+				$target = ltrim($line, '*');
+
+				# If this is the start of a new unordered list, add a line starting the list
+				if($state['inUnorderedList'] == false) {
+					$transformation .= '<ul>';
+					$state['inUnorderedList'] = true;
+				}
+				
+				# Add the current line as a list item
+				$line = '<li>' . $target . '</li>';
+			}
+			else {
+				# Check to see if an unordered list just ended
+				if($state['inUnorderedList'] == true) {
+					$transformation .= '</ul>';
+					$state['inUnorderedList'] = false;
+				}
 			}
 
 			# Add a line break if you find two spaces at the end of a line

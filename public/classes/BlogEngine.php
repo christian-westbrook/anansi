@@ -65,7 +65,7 @@ class BlogEngine {
 
 		// Convert blogs from XML to HTML and add them to the HTML blog stack
 		foreach($blogsXML as $blogXML) {
-			$blogHTML = $this->xmlEngine->getBlogExcerptHTML($blogXML);
+			$blogHTML = $this->xmlEngine->getBlogHTML($blogXML);
 			array_push($blogsHTML, $blogHTML);
 		}
 
