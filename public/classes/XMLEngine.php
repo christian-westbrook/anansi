@@ -168,6 +168,11 @@ class XMLEngine {
 	//              content is then returned as a string.
 	// ---------------------------------------------------------------------------
 	private function convertXMLBlogDataToHTML($blog, $content_key) {
+
+		// Control variables
+		$state = array();
+		$state['inUnorderedList'] = false;
+
 		# Append all desired HTML content to this string
 		$transformation = '';
 
@@ -324,6 +329,27 @@ class XMLEngine {
 			# ------------------------------------------------------------------
 			# PROCESS UNORDERED LISTS
 			# ------------------------------------------------------------------
+			if(preg_match('/\*.+/i', $line)) {
+
+				# Remove the leading asterisk
+				$target = ltrim($line, '*');
+
+				# If this is the start of a new unordered list, add a line starting the list
+				if($state['inUnorderedList'] == false) {
+					$transformation .= '<ul>';
+					$state['inUnorderedList'] = true;
+				}
+				
+				# Add the current line as a list item
+				$line = '<li>' . $target . '</li>';
+			}
+			else {
+				# Check to see if an unordered list just ended
+				if($state['inUnorderedList'] == true) {
+					$transformation .= '</ul>';
+					$state['inUnorderedList'] = false;
+				}
+			}
 
 			# Add a line break if you find two spaces at the end of a line
 			if(ctype_space(substr($line, -3))) {
