@@ -26,7 +26,7 @@
 
 			# Build the header
 			echo "<div id=\"header\">";
-			echo "<a href=\"$config->domain\"><h3>$config->title</h3></a>";
+			echo "<h3><a href=\"$config->domain\">$config->title</a></h3>";
 			echo "</div>";
 
 			# Build the blog feed using a BlogEngine object

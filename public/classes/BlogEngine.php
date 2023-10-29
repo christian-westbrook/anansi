@@ -61,11 +61,11 @@ class BlogEngine {
 		}
 
 		// Sort XML blogs on the date field
-		array_multisort(array_column($blogsXML, "date"), SORT_DESC, $blogsXML);
+		array_multisort(array_column($blogsXML, "sortableDateTime"), SORT_DESC, $blogsXML);
 
 		// Convert blogs from XML to HTML and add them to the HTML blog stack
 		foreach($blogsXML as $blogXML) {
-			$blogHTML = $this->xmlEngine->convertXMLBlogToHTML($blogXML);
+			$blogHTML = $this->xmlEngine->getBlogHTML($blogXML);
 			array_push($blogsHTML, $blogHTML);
 		}
 

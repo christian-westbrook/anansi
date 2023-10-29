@@ -9,7 +9,6 @@
 class XMLEngine {
 
 	// ----------------------- Public Interface ---------------------------------
-
 	// ---------------------------------------------------------------------------
 	// Method     : extractBlogFromXML()
 	// Engineer   : Christian Westbrook
@@ -132,11 +131,32 @@ class XMLEngine {
 		}
 
 		fclose($handle);
+
+		// Generate a sortable datetime and attach it to the blog
+		$blog['sortableDateTime'] = $this->generateSortableDateTime($blog['date'], $blog['time']);
+
 		return $blog;
 	}
+	// ---------------------------------------------------------------------------
 
 	// ---------------------------------------------------------------------------
-	// Method     : convertXMLBlogToHTML()
+	// ---------------------------------------------------------------------------
+	public function getBlogHTML($blog) {
+		return $this->convertXMLBlogDataToHTML($blog, 'content');
+	}
+	// ---------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
+	public function getBlogExcerptHTML($blog) {
+		return $this->convertXMLBlogDataToHTML($blog, 'excerpt');
+	}
+	// ---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
+
+	// ----------------------- Private Interface ---------------------------------
+	// ---------------------------------------------------------------------------
+	// Method     : convertXMLBlogDataToHTML()
 	// Engineer   : Christian Westbrook
 	// Parameters : $blog - A dictionary holding an individual blog's XML tags
 	//              mapped to their respective content.
@@ -147,7 +167,12 @@ class XMLEngine {
 	//              predefined HTML template representing a blog post. This HTML
 	//              content is then returned as a string.
 	// ---------------------------------------------------------------------------
-	public function convertXMLBlogToHTML($blog) {
+	private function convertXMLBlogDataToHTML($blog, $content_key) {
+
+		// Control variables
+		$state = array();
+		$state['inUnorderedList'] = false;
+
 		# Append all desired HTML content to this string
 		$transformation = '';
 
@@ -166,21 +191,73 @@ class XMLEngine {
 
 		# Body
 		$transformation .= '<div class="content">';
-		$content = $blog['content'];
+		$content = $blog[$content_key];
 
 		$lines = explode("\n", $content);
 
 		# Markdown parser
+		# For each line of blog content
 		foreach($lines as $line) {
 			# Trim leading whitespace
 			$line = ltrim($line);
+
+			# ------------------------------------------------------------------
+			# PROCESS STATE
+			# ------------------------------------------------------------------
+			# Check to see if an unordered list just ended
+			if($state['inUnorderedList'] == true && !preg_match('/\*.+/i', $line)) {
+				$transformation .= '</ul>';
+				$state['inUnorderedList'] = false;
+			}
 
 			# If the trimmed line is now empty, skip the line
 			if($line == '') {
 				continue;
 			}
 
-			# Process images
+			# ------------------------------------------------------------------
+			# PROCESS HEADINGS
+			# ------------------------------------------------------------------
+			if(preg_match('/######.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/#####.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h5 class="embeddedHeading">' . $target . '</h5>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/####.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h4 class="embeddedHeading">' . $target . '</h4>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/###.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h3 class="embeddedHeading">' . $target . '</h3>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/##.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h2 class="embeddedHeading">' . $target . '</h2>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/#.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
+				$transformation .= $line;
+				continue;
+			}
+
+			# ------------------------------------------------------------------
+			# PROCESS IMAGES
+			# ------------------------------------------------------------------
 			if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$reduced = $match;
@@ -197,8 +274,10 @@ class XMLEngine {
 				}
 			}
 
-			# Process links
-			if(preg_match_all('/\[[\w\s\.-]+\]\([\w\.\:\/\_-]+\)/i', $line, $matches)) {
+			# ------------------------------------------------------------------
+			# PROCESS HYPERLINKS
+			# ------------------------------------------------------------------
+			if(preg_match_all('/\[[\w\s\.@-]+\]\([\w\.\:\/\_@-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					foreach($match as $original) {
 						$reduced = $original;
@@ -210,13 +289,15 @@ class XMLEngine {
 						$href = $components[1];
 
 						$pattern = '/' . str_replace(['(', ')', '[', ']', '/', '!', '.'], ['\(', '\)', '\[', '\]', '\/', '\!', '\.'], $original) . '/i';
-						$replacement = '<a class="embeddedLink" href="' . $href . '">' . $text . '<a/>';
+						$replacement = '<a class="embeddedLink" href="' . $href . '" target="_blank">' . $text . '<a/>';
 						$line = preg_replace($pattern, $replacement, $line);
 					}
 				}
 			}
 
-			# Process bolding and italics
+			# ------------------------------------------------------------------
+			# PROCESS BOLDING AND ITALICS
+			# ------------------------------------------------------------------
 			if(preg_match('/\*\*\*[\w\s\!\?\.,]+\*\*\*/i', $line, $matches)) {
 				foreach($matches as $match) {
 					$target = trim($match, '*');
@@ -266,30 +347,22 @@ class XMLEngine {
 				}
 			}
 
-			# Process headings
-			if(preg_match('/######.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
-			}
-			if(preg_match('/#####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h5 class="embeddedHeading">' . $target . '</h5>';
-			}
-			if(preg_match('/####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h4 class="embeddedHeading">' . $target . '</h4>';
-			}
-			if(preg_match('/###.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h3 class="embeddedHeading">' . $target . '</h3>';
-			}
-			if(preg_match('/##.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h2 class="embeddedHeading">' . $target . '</h2>';
-			}
-			if(preg_match('/#.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
+			# ------------------------------------------------------------------
+			# PROCESS UNORDERED LISTS
+			# ------------------------------------------------------------------
+			if(preg_match('/\*.+/i', $line)) {
+
+				# Remove the leading asterisk
+				$target = ltrim($line, '*');
+
+				# If this is the start of a new unordered list, add a line starting the list
+				if($state['inUnorderedList'] == false) {
+					$transformation .= '<ul>';
+					$state['inUnorderedList'] = true;
+				}
+				
+				# Add the current line as a list item
+				$line = '<li>' . $target . '</li>';
 			}
 
 			# Add a line break if you find two spaces at the end of a line
@@ -297,15 +370,52 @@ class XMLEngine {
 				$line .= "<br/>";
 			}
 
-			# Add a line break to all surviving lines
-			$transformation .= $line . '<br/>';
+			# Add a line break to certain surviving lines
+			if($state['inUnorderedList'] == false) {
+				$line .= '<br/>';
+			}
+
+			# Add line to output
+			$transformation .= $line;
 		}
 
 		$transformation .= '</div>	';
+		$transformation .= '<hr>';
 		$transformation .= '</div>';
 
 		return $transformation;
 	}
+	// ---------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------
+	// Method     : generateSortableDateTime()
+	// Engineer   : Christian Westbrook
+	// Parameters : $date - A string representing the date at which a blog post
+	//              was, or will be, posted. Format: MM/DD/YYYY
+	//
+	//              $time - A string representing the time of day at which a blog
+	//              post was, or will be, posted. Format: HH:MM
+	//
+	// Output     : $sortableDateTime - A string representing the date and time
+	//              of day at which a blog post was, or will be, posted in a format
+	//              that is more easily sorted. Format: YYYYMMDDHHMM
+	//
+	// Abstract   : This method converts the date and time extracted from a blog
+	//              XML file into a single string variable formatted for use as
+	//              a key to sort blog posts against.
+	// ---------------------------------------------------------------------------
+	private function generateSortableDateTime($date, $time) {
+
+		// Split the date and time strings into elements
+		[$month, $day, $year] = explode("/", $date);
+		[$hour, $minute] = explode(":", $time);
+
+		// Recombine the elements from highest to lowest priority when sorting
+		$sortableDateTime = $year . $month . $day . $hour . $minute;
+
+		return $sortableDateTime;
+	}
+	// --------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------
 }
 ?>
