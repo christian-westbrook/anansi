@@ -289,7 +289,7 @@ class XMLEngine {
 						$href = $components[1];
 
 						$pattern = '/' . str_replace(['(', ')', '[', ']', '/', '!', '.'], ['\(', '\)', '\[', '\]', '\/', '\!', '\.'], $original) . '/i';
-						$replacement = '<a class="embeddedLink" href="' . $href . '">' . $text . '<a/>';
+						$replacement = '<a class="embeddedLink" href="' . $href . '" target="_blank">' . $text . '<a/>';
 						$line = preg_replace($pattern, $replacement, $line);
 					}
 				}
