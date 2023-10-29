@@ -380,6 +380,7 @@ class XMLEngine {
 		}
 
 		$transformation .= '</div>	';
+		$transformation .= '<hr>';
 		$transformation .= '</div>';
 
 		return $transformation;
