@@ -201,8 +201,57 @@ class XMLEngine {
 			# Trim leading whitespace
 			$line = ltrim($line);
 
+			# ------------------------------------------------------------------
+			# PROCESS STATE
+			# ------------------------------------------------------------------
+			# Check to see if an unordered list just ended
+			if($state['inUnorderedList'] == true && !preg_match('/\*.+/i', $line)) {
+				$transformation .= '</ul>';
+				$state['inUnorderedList'] = false;
+			}
+
 			# If the trimmed line is now empty, skip the line
 			if($line == '') {
+				continue;
+			}
+
+			# ------------------------------------------------------------------
+			# PROCESS HEADINGS
+			# ------------------------------------------------------------------
+			if(preg_match('/######.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/#####.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h5 class="embeddedHeading">' . $target . '</h5>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/####.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h4 class="embeddedHeading">' . $target . '</h4>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/###.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h3 class="embeddedHeading">' . $target . '</h3>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/##.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h2 class="embeddedHeading">' . $target . '</h2>';
+				$transformation .= $line;
+				continue;
+			}
+			if(preg_match('/#.+/i', $line)) {
+				$target = ltrim($line, '#');
+				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
+				$transformation .= $line;
 				continue;
 			}
 
@@ -299,34 +348,6 @@ class XMLEngine {
 			}
 
 			# ------------------------------------------------------------------
-			# PROCESS HEADINGS
-			# ------------------------------------------------------------------
-			if(preg_match('/######.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
-			}
-			if(preg_match('/#####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h5 class="embeddedHeading">' . $target . '</h5>';
-			}
-			if(preg_match('/####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h4 class="embeddedHeading">' . $target . '</h4>';
-			}
-			if(preg_match('/###.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h3 class="embeddedHeading">' . $target . '</h3>';
-			}
-			if(preg_match('/##.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h2 class="embeddedHeading">' . $target . '</h2>';
-			}
-			if(preg_match('/#.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
-			}
-
-			# ------------------------------------------------------------------
 			# PROCESS UNORDERED LISTS
 			# ------------------------------------------------------------------
 			if(preg_match('/\*.+/i', $line)) {
@@ -343,21 +364,19 @@ class XMLEngine {
 				# Add the current line as a list item
 				$line = '<li>' . $target . '</li>';
 			}
-			else {
-				# Check to see if an unordered list just ended
-				if($state['inUnorderedList'] == true) {
-					$transformation .= '</ul>';
-					$state['inUnorderedList'] = false;
-				}
-			}
 
 			# Add a line break if you find two spaces at the end of a line
 			if(ctype_space(substr($line, -3))) {
 				$line .= "<br/>";
 			}
 
-			# Add a line break to all surviving lines
-			$transformation .= $line . '<br/>';
+			# Add a line break to certain surviving lines
+			if($state['inUnorderedList'] == false) {
+				$line .= '<br/>';
+			}
+
+			# Add line to output
+			$transformation .= $line;
 		}
 
 		$transformation .= '</div>	';
