@@ -228,7 +228,7 @@ class XMLEngine {
 			# ------------------------------------------------------------------
 			# PROCESS HYPERLINKS
 			# ------------------------------------------------------------------
-			if(preg_match_all('/\[[\w\s\.-]+\]\([\w\.\:\/\_-]+\)/i', $line, $matches)) {
+			if(preg_match_all('/\[[\w\s\.@-]+\]\([\w\.\:\/\_@-]+\)/i', $line, $matches)) {
 				foreach($matches as $match) {
 					foreach($match as $original) {
 						$reduced = $original;
