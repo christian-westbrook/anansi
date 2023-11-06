@@ -405,7 +405,7 @@ class XMLEngine {
 		$src = $components[1];
 
 		# Create an HTML image from the extracted image source and alternate text
-		$HTMLimage = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" /><br/>';
+		$HTMLimage = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" />';
 
 		# Return the HTML image
 		return $HTMLimage;
