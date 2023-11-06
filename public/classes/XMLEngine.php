@@ -241,7 +241,7 @@ class XMLEngine {
 			# ------------------------------------------------------------------
 			# PROCESS IMAGES
 			# ------------------------------------------------------------------
-			if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $line)) {
+			if(preg_match('/\!\[[\w\s,-]+\]\([\w\s\.\/\!,-]+\)/i', $line)) {
 				$html = $this->convertMarkdownImageToHTMLImage($line);
 				$line = $html;
 			}
