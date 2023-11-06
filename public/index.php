@@ -49,6 +49,7 @@
 			echo "<h3><a href=\"$config->domain\">$config->title</a></h3>";
 			echo "<p id=\"views\">{$views} views</p>";
 			echo "</div>";
+			echo "<hr id=\"header-divider\">";
 
 			# Build the blog feed using a BlogEngine object
 			$blogEngine = new BlogEngine('./blogs/');

@@ -1,51 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400&family=Noto+Serif:wght@100;300;400&display=swap');
 
 body {
 	background-color: #FFFFFF;
+	color: #000000;
 }
 
 #header {
-	background-color: #121212;
-	color: #FFFFFF;
-
-	padding: 5px;
+	width: 85%;
 	height: 2em;
-
-	font-size: 50px;
-	font-family: 'Metal Mania', Arial, Helvetica, sans-serif;
-	font-weight: 100;
+	margin: 0 auto;
+	padding: 2em;
 
 	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
 }
 
 #header h3 {
-	display: flex;
-	justify-content: center;
-  	flex-direction: column;
-	margin: 0 auto;
-	padding-left: 3em;
+	font-family: "Noto Serif", serif;
+	font-size: 4em;
+	font-weight: 400;
 }
 
 #header a {
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #000000;
 }
 
 #views {
-	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 20px;
+	font-family: "Noto Sans", sans-serif;
+	font-size: 1.3em;
 
-	display: flex;
+	justify-self: flex-end;
+	margin-left: auto;
+}
 
-	justify-content: right;
-	align-items: center;
-	padding-right: 1em;
+#header-divider {
+	width: 85%;
 }
 
 @media only screen and (max-width: 1200px) {
 	#header {
-		font-size: 50px;
+		width: 90%;
+		height: 3em;
+	}
+
+	#header h3 {
+		font-size: 3em;
+	}
+
+	#header-divider {
+		width: 90%;
 	}
 }
