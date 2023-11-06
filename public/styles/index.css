@@ -25,11 +25,23 @@ body {
 	justify-content: center;
   	flex-direction: column;
 	margin: 0 auto;
+	padding-left: 3em;
 }
 
 #header a {
 	text-decoration: none;
 	color: #FFFFFF;
+}
+
+#views {
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+
+	display: flex;
+
+	justify-content: right;
+	align-items: center;
+	padding-right: 1em;
 }
 
 @media only screen and (max-width: 1200px) {
