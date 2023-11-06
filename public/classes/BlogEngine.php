@@ -56,20 +56,23 @@ class BlogEngine {
 			// Extract XML blog content from the XML file at the given path
 			$blogXML = $this->xmlEngine->extractBlogFromXML($this->blogSearchPath . $blogFileName);
 
-			// Add the newly extracted XML blog onto the stack of XML blogs
-			array_push($blogsXML, $blogXML);
+			# If the publication date has happened yet
+			if (time() > strtotime($blogXML['date'] . ' ' . $blogXML['time'])) {
+				# Add the newly extracted XML blog onto the stack of XML blogs to be rendered
+				array_push($blogsXML, $blogXML);
+			}
 		}
 
-		// Sort XML blogs on the date field
+		# Sort XML blogs on the date field
 		array_multisort(array_column($blogsXML, "sortableDateTime"), SORT_DESC, $blogsXML);
 
-		// Convert blogs from XML to HTML and add them to the HTML blog stack
+		# Convert blogs from XML to HTML and add them to the HTML blog stack
 		foreach($blogsXML as $blogXML) {
 			$blogHTML = $this->xmlEngine->getBlogHTML($blogXML);
 			array_push($blogsHTML, $blogHTML);
 		}
 
-		// Return the feed of HTML blogs
+		# Return the feed of HTML blogs
 		return $blogsHTML;
 	}
 }
