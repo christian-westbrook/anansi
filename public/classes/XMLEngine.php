@@ -376,10 +376,10 @@ class XMLEngine {
 		$count_of_number_signs = $counts_of_character_occurences[NUMERIC_VALUE_OF_NUMBER_SIGN_BYTE];
 
 		# Create an HTML heading based on the count of number signs
-		$HTMLheading = "<br/><h{$count_of_number_signs} class=\"embeddedHeading\">" . ltrim($markdownHeading, '#') . "</h{$count_of_number_signs}>";
+		$HTMLHeading = "<br/><h{$count_of_number_signs} class=\"embeddedHeading\">" . ltrim($markdownHeading, '#') . "</h{$count_of_number_signs}>";
 
 		# Return the HTML heading
-		return $HTMLheading;
+		return $HTMLHeading;
 	}
 	// --------------------------------------------------------------------------
 
