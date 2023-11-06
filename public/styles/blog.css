@@ -73,8 +73,10 @@
 }
 
 .blog .embeddedImage {
-	height: 25em;
-	margin: auto
+	display: block;
+	width: 28em;
+	margin: 0 auto;
+	margin-left: 2em;
 }
 
 .blog .embeddedHeading {
