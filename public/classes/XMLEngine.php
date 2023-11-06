@@ -394,21 +394,18 @@ class XMLEngine {
 	// Abstract   : This method converts an image in Markdown to an image in HTML
 	// ---------------------------------------------------------------------------
 	private function convertMarkdownImageToHTMLImage($markdownImage) {
-		if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $markdownImage, $matches)) {
-			foreach($matches as $match) {
-				$reduced = $match;
-				$reduced = substr($reduced, 1);
-				$reduced = ltrim($reduced, '[');
-				$reduced = rtrim($reduced, ')');
-				$components = explode('](', $reduced);
-				$altText = $components[0];
-				$src = $components[1];
+		
+		# Get the image source and alternate text from the markdown image
+		$reduced = trim($markdownImage);
+		$reduced = ltrim($reduced, '!');
+		$reduced = ltrim($reduced, '[');
+		$reduced = rtrim($reduced, ')');
+		$components = explode('](', $reduced);
+		$altText = $components[0];
+		$src = $components[1];
 
-				$pattern = '/' . str_replace(['(', ')', '[', ']', '/', '!', '.'], ['\(', '\)', '\[', '\]', '\/', '\!', '\.'], $match) . '/i';
-				$replacement = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" /><br/>';
-				$HTMLimage = preg_replace($pattern, $replacement, $markdownImage);
-			}
-		}
+		# Create an HTML image from the extracted image source and alternate text
+		$HTMLimage = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" /><br/>';
 
 		# Return the HTML image
 		return $HTMLimage;
