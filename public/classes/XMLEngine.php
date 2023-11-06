@@ -241,20 +241,9 @@ class XMLEngine {
 			# ------------------------------------------------------------------
 			# PROCESS IMAGES
 			# ------------------------------------------------------------------
-			if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $line, $matches)) {
-				foreach($matches as $match) {
-					$reduced = $match;
-					$reduced = substr($reduced, 1);
-					$reduced = ltrim($reduced, '[');
-					$reduced = rtrim($reduced, ')');
-					$components = explode('](', $reduced);
-					$altText = $components[0];
-					$src = $components[1];
-
-					$pattern = '/' . str_replace(['(', ')', '[', ']', '/', '!', '.'], ['\(', '\)', '\[', '\]', '\/', '\!', '\.'], $match) . '/i';
-					$replacement = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" /><br/>';
-					$line = preg_replace($pattern, $replacement, $line);
-				}
+			if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $line)) {
+				$html = $this->convertMarkdownImageToHTMLImage($line);
+				$line = $html;
 			}
 
 			# ------------------------------------------------------------------
@@ -371,7 +360,7 @@ class XMLEngine {
 	// ---------------------------------------------------------------------------
 
 	// ---------------------------------------------------------------------------
-	// Method     : convertXMLHeadingToHTMLHeading()
+	// Method     : convertMarkdownHeadingToHTMLHeading()
 	// Engineer   : Christian Westbrook
 	// Parameters : $markdownHeading - A string representing a line of markdown defining
 	//              a heading
@@ -389,8 +378,40 @@ class XMLEngine {
 		# Create an HTML heading based on the count of number signs
 		$HTMLheading = "<br/><h{$count_of_number_signs} class=\"embeddedHeading\">" . ltrim($markdownHeading, '#') . "</h{$count_of_number_signs}>";
 
-		# Retrurn the HTML heading
+		# Return the HTML heading
 		return $HTMLheading;
+	}
+	// --------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------
+	// Method     : convertMarkdownImageToHTMLImage()
+	// Engineer   : Christian Westbrook
+	// Parameters : $markdownImage - A string representing a line of markdown defining
+	//              an image
+	//
+	// Output     : $HTMLimage - A string representing an image in HTML
+	//
+	// Abstract   : This method converts an image in Markdown to an image in HTML
+	// ---------------------------------------------------------------------------
+	private function convertMarkdownImageToHTMLImage($markdownImage) {
+		if(preg_match('/\!\[[\w\s-]+\]\([\w\.\/-]+\)/i', $markdownImage, $matches)) {
+			foreach($matches as $match) {
+				$reduced = $match;
+				$reduced = substr($reduced, 1);
+				$reduced = ltrim($reduced, '[');
+				$reduced = rtrim($reduced, ')');
+				$components = explode('](', $reduced);
+				$altText = $components[0];
+				$src = $components[1];
+
+				$pattern = '/' . str_replace(['(', ')', '[', ']', '/', '!', '.'], ['\(', '\)', '\[', '\]', '\/', '\!', '\.'], $match) . '/i';
+				$replacement = '<img class="embeddedImage" src="' . $src . '" alt="' . $altText . '" /><br/>';
+				$HTMLimage = preg_replace($pattern, $replacement, $markdownImage);
+			}
+		}
+
+		# Return the HTML image
+		return $HTMLimage;
 	}
 	// --------------------------------------------------------------------------
 
