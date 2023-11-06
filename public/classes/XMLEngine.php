@@ -6,6 +6,21 @@
 # Abstract : This class provides an interface of support methods that handle
 #            XML parsing and conversions to HTML for the portfolio web system.
 # ------------------------------------------------------------------------------
+
+# Constants
+
+# Mode defined for the PHP function count_chars()
+# https://www.php.net/manual/en/function.count-chars.php
+#
+# This mode produces an array with the byte-value as key and the frequency of every byte as value, 
+# but only byte-values with a frequency greater than zero are listed
+define('COUNT_CHARS_MODE', '1');
+
+# Get the byte value of the # symbol used for identifying headings in markdown
+# The ord() function converts the first byte of a string to its numerical value from 0 to 255
+# https://www.php.net/manual/en/function.ord.php
+define('NUMERIC_VALUE_OF_NUMBER_SIGN_BYTE', ord("#"));
+
 class XMLEngine {
 
 	// ----------------------- Public Interface ---------------------------------
@@ -218,41 +233,9 @@ class XMLEngine {
 			# ------------------------------------------------------------------
 			# PROCESS HEADINGS
 			# ------------------------------------------------------------------
-			if(preg_match('/######.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h6 class="embeddedHeading">' . $target . '</h6>';
-				$transformation .= $line;
-				continue;
-			}
-			if(preg_match('/#####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h5 class="embeddedHeading">' . $target . '</h5>';
-				$transformation .= $line;
-				continue;
-			}
-			if(preg_match('/####.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h4 class="embeddedHeading">' . $target . '</h4>';
-				$transformation .= $line;
-				continue;
-			}
-			if(preg_match('/###.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h3 class="embeddedHeading">' . $target . '</h3>';
-				$transformation .= $line;
-				continue;
-			}
-			if(preg_match('/##.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h2 class="embeddedHeading">' . $target . '</h2>';
-				$transformation .= $line;
-				continue;
-			}
-			if(preg_match('/#.+/i', $line)) {
-				$target = ltrim($line, '#');
-				$line = '<br/><h1 class="embeddedHeading">' . $target . '</h1>';
-				$transformation .= $line;
-				continue;
+			if(preg_match('/^#+.+/i', $line)) {
+				$html = $this->convertMarkdownHeadingToHTMLHeading($line);
+				$line = $html;
 			}
 
 			# ------------------------------------------------------------------
@@ -386,6 +369,30 @@ class XMLEngine {
 		return $transformation;
 	}
 	// ---------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------
+	// Method     : convertXMLHeadingToHTMLHeading()
+	// Engineer   : Christian Westbrook
+	// Parameters : $markdownHeading - A string representing a line of markdown defining
+	//              a heading
+	//
+	// Output     : $HTMLheading - A string representing a heading in HTML
+	//
+	// Abstract   : This method converts a heading in Markdown to a heading in HTML
+	// ---------------------------------------------------------------------------
+	private function convertMarkdownHeadingToHTMLHeading($markdownHeading) {
+
+		# Count how many number signs are present in this heading
+		$counts_of_character_occurences = count_chars($markdownHeading, COUNT_CHARS_MODE);
+		$count_of_number_signs = $counts_of_character_occurences[NUMERIC_VALUE_OF_NUMBER_SIGN_BYTE];
+
+		# Create an HTML heading based on the count of number signs
+		$HTMLheading = "<br/><h{$count_of_number_signs} class=\"embeddedHeading\">" . ltrim($markdownHeading, '#') . "</h{$count_of_number_signs}>";
+
+		# Retrurn the HTML heading
+		return $HTMLheading;
+	}
+	// --------------------------------------------------------------------------
 
 	// ---------------------------------------------------------------------------
 	// Method     : generateSortableDateTime()
