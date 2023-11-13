@@ -187,6 +187,7 @@ class XMLEngine {
 		// Control variables
 		$state = array();
 		$state['inUnorderedList'] = false;
+		$state['inCodeBlock'] = false;
 
 		# Append all desired HTML content to this string
 		$transformation = '';
