@@ -96,6 +96,32 @@
 	text-decoration: none;
 }
 
+.blog .code {
+
+	background-color: #F5F5F5;
+
+	line-height: 1.3;
+
+	border: 1px solid #D3D3D3;
+
+	width: 95%;
+	margin: 0 auto;
+
+}
+
+.blog .code pre {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+	margin-left: 0.5em;
+	margin-right: 0.25em;
+}
+
+.blog .code code {
+	font-size: 16px;
+	font-family: monospace;
+	color: black;
+}
+
 @media only screen and (max-width: 1200px) {
 	.blog {
 		width: 90%;

@@ -226,11 +226,10 @@ class XMLEngine {
 
 			# Check to see if a code block just ended
 			if($state['inCodeBlock'] == true && preg_match('/```/i', $line)) {
-				$line = '</code></pre>';
+				$line = '</code></pre></div></br>';
 				$state['inCodeBlock'] = false;
 			}
 			else if($state['inCodeBlock'] == true && !preg_match('/```/i', $line)) {
-				echo($line);
 				$transformation .= $line;
 				continue;
 			}
@@ -367,7 +366,7 @@ class XMLEngine {
 				}
 
 				# Create a new code block in HTML
-				$transformation .= '<pre><code>';
+				$transformation .= '</br><div class="code"><pre><code>';
 				continue;
 			}
 			# ------------------------------------------------------------------
