@@ -214,8 +214,6 @@ class XMLEngine {
 		# Markdown parser
 		# For each line of blog content
 		foreach($lines as $line) {
-			# Trim leading whitespace
-			$line = ltrim($line);
 
 			# ------------------------------------------------------------------
 			# PROCESS STATE
@@ -225,6 +223,21 @@ class XMLEngine {
 				$transformation .= '</ul>';
 				$state['inUnorderedList'] = false;
 			}
+
+			# Check to see if a code block just ended
+			if($state['inCodeBlock'] == true && preg_match('/```/i', $line)) {
+				$line = '</code></pre>';
+				$state['inCodeBlock'] = false;
+			}
+			else if($state['inCodeBlock'] == true && !preg_match('/```/i', $line)) {
+				echo($line);
+				$transformation .= $line;
+				continue;
+			}
+			# ------------------------------------------------------------------
+
+			# Trim leading whitespace
+			$line = ltrim($line);
 
 			# If the trimmed line is now empty, skip the line
 			if($line == '') {
@@ -238,6 +251,7 @@ class XMLEngine {
 				$html = $this->convertMarkdownHeadingToHTMLHeading($line);
 				$line = $html;
 			}
+			# ------------------------------------------------------------------
 
 			# ------------------------------------------------------------------
 			# PROCESS IMAGES
@@ -246,6 +260,7 @@ class XMLEngine {
 				$html = $this->convertMarkdownImageToHTMLImage($line);
 				$line = $html;
 			}
+			# ------------------------------------------------------------------
 
 			# ------------------------------------------------------------------
 			# PROCESS HYPERLINKS
@@ -267,6 +282,7 @@ class XMLEngine {
 					}
 				}
 			}
+			# ------------------------------------------------------------------
 
 			# ------------------------------------------------------------------
 			# PROCESS BOLDING AND ITALICS
@@ -319,6 +335,7 @@ class XMLEngine {
 					$line = preg_replace($pattern, $replacement, $line);
 				}
 			}
+			# ------------------------------------------------------------------
 
 			# ------------------------------------------------------------------
 			# PROCESS UNORDERED LISTS
@@ -337,6 +354,23 @@ class XMLEngine {
 				# Add the current line as a list item
 				$line = '<li>' . $target . '</li>';
 			}
+			# ------------------------------------------------------------------
+
+			# ------------------------------------------------------------------
+			# PROCESS CODE BLOCKS
+			# ------------------------------------------------------------------
+			if(preg_match('/```/i', $line)) {
+
+				# Tell state manager that we're inside a code block
+				if($state['inCodeBlock'] == false) {
+					$state['inCodeBlock'] = true;
+				}
+
+				# Create a new code block in HTML
+				$transformation .= '<pre><code>';
+				continue;
+			}
+			# ------------------------------------------------------------------
 
 			# Add a line break if you find two spaces at the end of a line
 			if(ctype_space(substr($line, -3))) {
