@@ -1,17 +1,21 @@
 <!DOCTYPE html>
+
 <!-- ------------------------------------------------------------------------- -->
-<!-- System   : Portfolio Web System                                           -->
+<!-- System   : Anansi, the open-source blogging and portfolio engine          -->
+<!--            https://github.com/christian-westbrook/anansi                  -->
+<!--                                                                           -->
 <!-- Script   : index.php                                                      -->
 <!-- Engineer : Christian Westbrook                                            -->
 <!-- Abstract : This script serves as a landing page and entry point to the    -->
 <!--            web system.                                                    -->
 <!-- ------------------------------------------------------------------------- -->
+
 <html>
 	<head>
 			<title>christianwestbrook.dev</title>
 			<link type="text/css" rel="stylesheet" href="./styles/index.css" />
 			<link type="text/css" rel="stylesheet" href="./styles/blog.css" />
-			<?php include './classes/BlogEngine.php'; ?>
+			<?php include './php/BlogEngine.php'; ?>
 	</head>
 
 	<body>

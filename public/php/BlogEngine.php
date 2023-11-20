@@ -13,7 +13,7 @@
 # ------------------------------------------------------------------------------
 
 // Imports
-include './classes/XMLEngine.php';
+include './php/XMLEngine.php';
 
 class BlogEngine {
 
